@@ -1,126 +1,138 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Examen Online  | | 
-      Tecnológico de Estudios Superiores de Ixtapaluca
-    </title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" href="image/logo.png" />
-    <link  rel="stylesheet" href="css/bootstrap.min.css"/>
-    <link  rel="stylesheet" href="css/bootstrap-theme.min.css"/>    
-    <link rel="stylesheet" href="css/main.css">
-    <link  rel="stylesheet" href="css/font.css">
-    <script src="js/jquery.js" type="text/javascript"></script> 
-    <script src="js/bootstrap.min.js"  type="text/javascript"></script>
-    <script src="js/Crono.js"  type="text/javascript"></script>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+  <title>Examen Online | |
+    Tecnológico de Estudios Superiores de Ixtapaluca
+  </title>
 
-    <!--alert message-->
-    <?php if(@$_GET['w']){
-      echo'<script>alert("'.@$_GET['w'].'");</script>';
-    }?>
-    <!--alert message end-->
+  <link rel="shortcut icon" href="image/logo.png" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/font.css">
+  <script src="js/jquery.js" type="text/javascript"></script>
+  <script src="js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="js/Crono.js" type="text/javascript"></script>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
-    <script>
-      function validateForm() {
-        var a = document.forms["form"]["newpass"].value;
-        if(a == null || a == ""){
-          alert("Escriba una nueva contraseña");
-          return false;
-        }
-        if(a.length<5 || a.length>25){
-          alert("La contraseña debe tener una extensión entre 5 y 25 caracteres");
-          return false;
-        }
+  <!--alert message-->
+  <?php if (@$_GET['w']) {
+    echo '<script>alert("' . @$_GET['w'] . '");</script>';
+  } ?>
+  <!--alert message end-->
+
+  <script>
+    function validateForm() {
+      var a = document.forms["form"]["newpass"].value;
+      if (a == null || a == "") {
+        alert("Escriba una nueva contraseña");
+        return false;
       }
-    </script>
-  </head>
+      if (a.length < 5 || a.length > 25) {
+        alert("La contraseña debe tener una extensión entre 5 y 25 caracteres");
+        return false;
+      }
+    }
 
-  <?php
-    include_once 'dbConnection.php';
-  ?>
+    $("#next_question").click((event) => {
+      event.preventDefault();
+    });
+    $("#back_question").click((event) => {
+      event.preventDefault();
+    });
+    $("#end_quiz").click((event) => {
+      event.preventDefault();
+    });
+  </script>
+</head>
 
-  <body>
-    <div class="header">
-      <div class="row">
-        <div class="col-lg-6">
-          <span class="logo">Sistema de Exámenes Online</span>
-        </div>
-        <div class="col-md-4 col-md-offset-2">
-          <?php
-            include_once 'dbConnection.php';
-            session_start();
-            if(!(isset($_SESSION['schoolnumber']))){
-              header("location:index.php");
-            }
-            else{
-              $name = $_SESSION['name'];
-              $last_name = $_SESSION['last_name'];
-              $schoolnumber=$_SESSION['schoolnumber'];
-              $career = $_SESSION['career'];
-              $grnum = $_SESSION['groupnum'];
+<?php
+include_once 'dbConnection.php';
+?>
 
-              include_once 'dbConnection.php';
-              echo '<span class="pull-right top title1" ><span class="log1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Hola '.$name.'</span> &nbsp;|&nbsp;<a href="logout.php?q=account.php" class="log"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Cerrar Sesión</button></a></span>';
-            }
-          ?>
-        </div>
+<body>
+  <div class="header">
+    <div class="row">
+      <div class="col-lg-6">
+        <span class="logo">Sistema de Exámenes Online</span>
+      </div>
+      <div class="col-md-4 col-md-offset-2">
+        <?php
+        include_once 'dbConnection.php';
+        session_start();
+        if (!(isset($_SESSION['schoolnumber']))) {
+          header("location:index.php");
+        } else {
+          $name = $_SESSION['name'];
+          $last_name = $_SESSION['last_name'];
+          $schoolnumber = $_SESSION['schoolnumber'];
+          $career = $_SESSION['career'];
+          $grnum = $_SESSION['groupnum'];
+
+          include_once 'dbConnection.php';
+          echo '<span class="pull-right top title1" ><span class="log1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;Hola ' . $name . '</span> &nbsp;|&nbsp;<a href="logout.php?q=account.php" class="log"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Cerrar Sesión</button></a></span>';
+        }
+        ?>
       </div>
     </div>
+  </div>
 
-    <div class="bg">
-      <!--navigation menu-->
-      <nav class="navbar navbar-default title1">
-        <div class="container-fluid">
-          <!-- Brand and toggle get grouped for better mobile display -->
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="account.php?q=1">
-              <b>TESI en línea</b>
-            </a>
-          </div>
+  <div class="bg">
+    <!--navigation menu-->
+    <nav class="navbar navbar-default title1">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="account.php?q=1">
+            <b>TESI en línea</b>
+          </a>
+        </div>
 
-          <!-- Collect the nav links, forms, and other content for toggling -->
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-              <li <?php if(@$_GET['q']==1) echo'class="active"'; ?> ><a href="account.php?q=1"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Evaluaciones<span class="sr-only">(current)</span></a></li>
-              <li <?php if(@$_GET['q']==2 || @$_GET['q']=='quizresul') echo'class="active"'; ?>><a href="account.php?q=2"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Calificaciones</a></li>
-              <li class="dropdown <?php if(@$_GET['q']==4 || @$_GET['q']==5) echo'active"'; ?>">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Datos personales</a>
-                <ul class="dropdown-menu">
-                  <li><a href="account.php?q=4">Información personal</a></li>
-                  <li><a href="account.php?q=5">Cambiar contraseña</a></li>
-                </ul>
-              </li>
-		        </ul>             
-          </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-      </nav><!--navigation menu closed-->
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li <?php if (@$_GET['q'] == 1) echo 'class="active"'; ?>><a href="account.php?q=1"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Evaluaciones<span class="sr-only">(current)</span></a></li>
+            <li <?php if (@$_GET['q'] == 2 || @$_GET['q'] == 'quizresul') echo 'class="active"'; ?>><a href="account.php?q=2"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Calificaciones</a></li>
+            <li class="dropdown <?php if (@$_GET['q'] == 4 || @$_GET['q'] == 5) echo 'active"'; ?>">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Datos personales</a>
+              <ul class="dropdown-menu">
+                <li><a href="account.php?q=4">Información personal</a></li>
+                <li><a href="account.php?q=5">Cambiar contraseña</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!--navigation menu closed-->
 
-      <div class="container"><!--container start-->
-        <div class="row">
-          <div class="col-md-12">
+    <div class="container">
+      <!--container start-->
+      <div class="row">
+        <div class="col-md-12">
 
-            <!--home start-->
-            <?php if(@$_GET['q']==1) {
-              $conuser = mysqli_query($con,"SELECT * FROM user WHERE schoolnumber= '$schoolnumber'") or die('Error');
-              $count=mysqli_num_rows($conuser);
-              if($count==1){
-                while($row = mysqli_fetch_array($conuser)) {
-                  $groupnum = $row['groupnum'];
-                }
+          <!--home start-->
+          <?php if (@$_GET['q'] == 1) {
+            $conuser = mysqli_query($con, "SELECT * FROM user WHERE schoolnumber= '$schoolnumber'") or die('Error');
+            $count = mysqli_num_rows($conuser);
+            if ($count == 1) {
+              while ($row = mysqli_fetch_array($conuser)) {
+                $groupnum = $row['groupnum'];
               }
+            }
 
-              $result = mysqli_query($con,"SELECT * FROM quiz WHERE groupnum = '$groupnum' ORDER BY date DESC") or die('Error');
-              echo  '
+            $result = mysqli_query($con, "SELECT * FROM quiz WHERE groupnum = '$groupnum' ORDER BY date DESC") or die('Error');
+            echo  '
               <div class="panel">
                 <div class="table-responsive">
                   <table class="table table-striped title1">
@@ -135,38 +147,38 @@
                       <td><b>Fecha de Inicio</b></td>
                       <td><b>Fecha de Termino</b></td>
                     </tr>';
-              $c=1;
+            $c = 1;
 
-              date_default_timezone_set('America/Mexico_City');
-              $actual_date = date("Y-m-d H:i:s");
+            date_default_timezone_set('America/Mexico_City');
+            $actual_date = date("Y-m-d H:i:s");
 
-              while($row = mysqli_fetch_array($result)) {
-	              $title = $row['title'];
-                $sub = $row['subject'];
-	              $total = $row['total'];
-	              $intro = $row['description'];
-                $time = $row['time'];
-	              $eid = $row['eid'];
-                $sd = $row['start_date'];
-                $fd = $row['final_date'];
-                $q12=mysqli_query($con,"SELECT total_score FROM qualification WHERE eid='$eid' AND schoolnumber='$schoolnumber'" )or die('Error98');
-                $rowcount=mysqli_num_rows($q12);	
+            while ($row = mysqli_fetch_array($result)) {
+              $title = $row['title'];
+              $sub = $row['subject'];
+              $total = $row['total'];
+              $intro = $row['description'];
+              $time = $row['time'];
+              $eid = $row['eid'];
+              $sd = $row['start_date'];
+              $fd = $row['final_date'];
+              $q12 = mysqli_query($con, "SELECT total_score FROM qualification WHERE eid='$eid' AND schoolnumber='$schoolnumber'") or die('Error98');
+              $rowcount = mysqli_num_rows($q12);
 
-                if($actual_date > $sd && $actual_date < $fd){
-                  if($rowcount == 0){
-                    echo '
+              if ($actual_date > $sd && $actual_date < $fd) {
+                if ($rowcount == 0) {
+                  echo '
                       <tr>
-                        <td>'.$c++.'</td>
-                        <td>'.$title.'</td>
-                        <td>'.$sub.'</td>
-                        <td>'.$title.'</td>
-                        <td>'.$intro.'</td>
-                        <td>'.$time.'&nbsp;min</td>
-                        <td>'.$sd.'</td>
-                        <td>'.$fd.'</td>
+                        <td>' . $c++ . '</td>
+                        <td>' . $title . '</td>
+                        <td>' . $sub . '</td>
+                        <td>' . $title . '</td>
+                        <td>' . $intro . '</td>
+                        <td>' . $time . '&nbsp;min</td>
+                        <td>' . $sd . '</td>
+                        <td>' . $fd . '</td>
                         <td>
                           <b>
-                            <a href="account.php?q=quiz2&eid='.$eid.'&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
+                            <a href="account.php?q=quiz2&eid=' . $eid . '&t=' . $total . '" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
                               <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;
                               <span class="title1">
                                 <b>Iniciar</b>
@@ -175,88 +187,123 @@
                           </b>
                         </td>
                       </tr>';
-                  }
-                  else{
-                    echo '
+                } else {
+                  echo '
                       <tr>
-                        <td>'.$c++.'</td>
-                        <td>'.$title.'&nbsp;
+                        <td>' . $c++ . '</td>
+                        <td>' . $title . '&nbsp;
                           <span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true">
                           </span>
                         </td>
-                        <td>'.$sub.'</td>
-                        <td>'.$total.'</td>
-                        <td>'.$intro.'</td>
-                        <td>'.$time.'&nbsp;min</td>
-                        <td>'.$sd.'</td>
-                        <td>'.$fd.'</td>
+                        <td>' . $sub . '</td>
+                        <td>' . $total . '</td>
+                        <td>' . $intro . '</td>
+                        <td>' . $time . '&nbsp;min</td>
+                        <td>' . $sd . '</td>
+                        <td>' . $fd . '</td>
                         <td style="color:BLUE;">EVALUACIÓN RESUELTA. CONSULTA TUS CALIFICACIONES</td>
                       </tr>';
-                  }
                 }
               }
-              $c=0;
-              echo '
+            }
+            $c = 0;
+            echo '
                   </table>
                 </div>
               </div>';
-            }?>
+          } ?>
 
-            <!--result display-->
-            <?php
-              //result display
-              if(@$_GET['q']== 'result' && @$_GET['eid']) {
-                $eid=@$_GET['eid'];
-                $q=mysqli_query($con,"SELECT * FROM qualification WHERE eid='$eid' AND schoolnumber='$schoolnumber' " )or die('Error157');
-                echo  '<div class="panel">
+          <!--result display-->
+          <?php
+          //result display
+          if (@$_GET['q'] == 'result' && @$_GET['eid']) {
+            $eid = @$_GET['eid'];
+            $q = mysqli_query($con, "SELECT * FROM qualification WHERE eid='$eid' AND schoolnumber='$schoolnumber' ") or die('Error157');
+            echo  '<div class="panel">
                 <center><h1 class="title" style="color:#660033">RESULTADOS DE LA EVALUACIÓN</h1><center><br /><table class="table table-striped title1" style="font-size:20px;font-weight:1000;">';
 
-                while($row=mysqli_fetch_array($q) ){
-                  $s=$row['final_score'];
-                  $w=$row['wrong_ans'];
-                  $r=$row['right_ans'];
-                  $qa=$row['total_score'];
-                  echo '<tr style="color:blue"><td>Puntaje Máximo</td><td>'.$qa.'</td></tr>
-                  <tr style="color:#879E0F"><td>Respuestas Correctas&nbsp;<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></td><td>'.$r.'</td></tr> 
-	                <tr style="color:red"><td>Respuestas Equivocadas&nbsp;<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></td><td>'.$w.'</td></tr>
-	                <tr style="color:#080C3E"><td>PUNTAJE OBTENIDO EN LA PRUEBA&nbsp;<span class="glyphicon glyphicon-star" aria-hidden="true"></span></td><td>'.$s.'</td></tr>';
-                }
-                echo '</table></div>';
+            while ($row = mysqli_fetch_array($q)) {
+              $s = $row['final_score'];
+              $w = $row['wrong_ans'];
+              $r = $row['right_ans'];
+              $qa = $row['total_score'];
+              echo '<tr style="color:blue"><td>Puntaje Máximo</td><td>' . $qa . '</td></tr>
+                  <tr style="color:#879E0F"><td>Respuestas Correctas&nbsp;<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span></td><td>' . $r . '</td></tr> 
+	                <tr style="color:red"><td>Respuestas Equivocadas&nbsp;<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></td><td>' . $w . '</td></tr>
+	                <tr style="color:#080C3E"><td>PUNTAJE OBTENIDO EN LA PRUEBA&nbsp;<span class="glyphicon glyphicon-star" aria-hidden="true"></span></td><td>' . $s . '</td></tr>';
+            }
+            echo '</table></div>';
+          }
+          ?>
+          <!--result end-->
+
+          <!--quiz start-->
+          <?php
+          if (@$_GET['q'] == 'quiz2') {
+            $eid = @$_GET['eid'];
+            $q = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid'") or die('Error157');
+
+            $index = isset($_SESSION["current_question"]) ? $_SESSION["current_question"] : 0;
+
+            $_SESSION["current_question"] = $index;
+            $results = [];
+            while ($row = $q->fetch_assoc()) {
+              $results[] = $row;
+            }
+
+            echo "Current index : " . $index . " Total count:" . count($results) . " Current session: " . $_SESSION['current_question'];
+
+
+            if ($index == 0) {
+              echo '<form action="" method="post">';
+              echo '<button type="submit" name="next_question" id="next_question">Siguiente</button>';
+              echo '</form>';
+            } elseif ($index == count($results) - 1) {
+              echo '<form action="" method="post">';
+              echo '<button type="submit" name="back_question" id="back_question">Atrás</button>';
+              echo '</form>';
+              echo '<form action="guardar_respuestas" method="post">';
+              // hidden $_SESSION["RESPUESTAS"];
+              echo '<button type="submit" name="end_quiz" id="end_quiz">Terminar</button>';
+              echo '</form>';
+            } else {
+              echo '<form action="" method="post">';
+              echo '<button type="submit" name="back_question" id="back_question">Atrás</button>';
+              echo '<button type="submit" name="next_question" id="next_question">Siguiente</button>';
+              echo '</form>';
+            }
+
+            if (isset($_POST['next_question'])) {
+              if ($index < count($results) - 1) {
+                $_SESSION['current_question'] += 1;
               }
-            ?>
-            <!--result end-->
+            } else if (isset($_POST['back_question'])) {
+              if ($index > 0) {
+                $_SESSION['current_question'] -= 1;
+              }
+            }
 
-            <!--quiz start-->
-            <?php
-              if(@$_GET['q']== 'quiz2') {
-
-                echo '
+            echo '
                 <div class="panel">
-                  <div id="question">
-                    <h1>Hola</h1>
+                  <div id="question"> 
+                    <h1>' . $results[$index]['qns'] . '</h1>
                     <div id="answer">
                       <h1>Grillin</h1>';
-                if($number==1){
-                  echo'<button type="button">Siguiente</button>';
-                }
-                elseif($number > 1 && $number < $total){
-
-                }
-
-                echo'
+            echo '<button type="button">Siguiente</button>';
+            echo '
                     </div>
                   </div>
                 </div>
-                ';         
-              }
-            ?>
-            <!--quiz end-->
+                ';
+          }
+          ?>
+          <!--quiz end-->
 
-            <?php
-              //history start
-              if(@$_GET['q']== 2) {
-                $q=mysqli_query($con,"SELECT * FROM qualification WHERE schoolnumber='$schoolnumber' ORDER BY date DESC " )or die('Error197');
-                echo  '
+          <?php
+          //history start
+          if (@$_GET['q'] == 2) {
+            $q = mysqli_query($con, "SELECT * FROM qualification WHERE schoolnumber='$schoolnumber' ORDER BY date DESC ") or die('Error197');
+            echo  '
                 <div class="panel">
                   <div class="table-responsive">  
                     <table class="table table-striped title1" >
@@ -270,39 +317,39 @@
                         <td><b>Respuestas Incorrectas</b></td>
                         <td><b>Porcentaje Obtenido<b></td>
                       </tr>';
-                $c=0;
+            $c = 0;
 
-                while($row=mysqli_fetch_array($q) ){
-                  $eid=$row['eid'];
-                  $ts=$row['total_score'];
-                  $w=$row['wrong_ans'];
-                  $r=$row['right_ans'];
-                  $fs=$row['final_score'];
-                  $pc=$row['porcent'];
-                  $q23=mysqli_query($con,"SELECT * FROM quiz WHERE  eid='$eid' " )or die('Error208');
+            while ($row = mysqli_fetch_array($q)) {
+              $eid = $row['eid'];
+              $ts = $row['total_score'];
+              $w = $row['wrong_ans'];
+              $r = $row['right_ans'];
+              $fs = $row['final_score'];
+              $pc = $row['porcent'];
+              $q23 = mysqli_query($con, "SELECT * FROM quiz WHERE  eid='$eid' ") or die('Error208');
 
-                  while($row=mysqli_fetch_array($q23) ){
-                    $title=$row['title'];
-                    $final_date=$row['final_date'];
-                  }
+              while ($row = mysqli_fetch_array($q23)) {
+                $title = $row['title'];
+                $final_date = $row['final_date'];
+              }
 
-                  date_default_timezone_set('America/Mexico_City');
-                  $actual_date = date("Y-m-d H:i:s");
+              date_default_timezone_set('America/Mexico_City');
+              $actual_date = date("Y-m-d H:i:s");
 
-                  $c++;
-                  if($actual_date > $final_date){
-                    echo '
+              $c++;
+              if ($actual_date > $final_date) {
+                echo '
                       <tr>
-                        <td>'.$c.'</td>
-                        <td>'.$title.'</td>
-                        <td>'.$ts.'</td>
-                        <td>'.$fs.'</td>
-                        <td>'.$r.'</td>
-                        <td>'.$w.'</td>
-                        <td>'.$pc.'%</td>
+                        <td>' . $c . '</td>
+                        <td>' . $title . '</td>
+                        <td>' . $ts . '</td>
+                        <td>' . $fs . '</td>
+                        <td>' . $r . '</td>
+                        <td>' . $w . '</td>
+                        <td>' . $pc . '%</td>
                         <td>
                           <b>
-                            <a href="account.php?q=quizresul&eid='.$eid.'&schnum='.$schoolnumber.'" class="pull-right btn sub1" style="margin:0px;background:#4482AB; width:155px;">
+                            <a href="account.php?q=quizresul&eid=' . $eid . '&schnum=' . $schoolnumber . '" class="pull-right btn sub1" style="margin:0px;background:#4482AB; width:155px;">
                               <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;
                               <span class="title1">
                                 <b>Ver resultados</b>
@@ -311,183 +358,171 @@
                           </b>
                         </td>
                       </tr>';
-                  }
-                  else{
-                    echo '
+              } else {
+                echo '
                       <tr>
-                        <td>'.$c.'</td>
-                        <td>'.$title.'</td>
-                        <td>'.$ts.'</td>
-                        <td>'.$fs.'</td>
-                        <td>'.$r.'</td>
-                        <td>'.$w.'</td>
-                        <td>'.$pc.'%</td>
+                        <td>' . $c . '</td>
+                        <td>' . $title . '</td>
+                        <td>' . $ts . '</td>
+                        <td>' . $fs . '</td>
+                        <td>' . $r . '</td>
+                        <td>' . $w . '</td>
+                        <td>' . $pc . '%</td>
                         <td>Respuestas disponibles despues de la fecha de termino.</td>
                       </tr>';
-                  }
-                }
-                echo'
+              }
+            }
+            echo '
                     </table>
                   </div>
                 </div>';
-              }
-            ?>
+          }
+          ?>
 
-            <!--Consultar resultados, preguntas y respuestas-->
-            <?php
-              if(@$_GET['q']== 'quizresul'){
-                $eid=@$_GET['eid'];
-                $q=mysqli_query($con,"SELECT * FROM quiz WHERE eid='$eid'" );
-                while($row=mysqli_fetch_array($q)){
-                  $total = $row['total'];
-                }
+          <!--Consultar resultados, preguntas y respuestas-->
+          <?php
+          if (@$_GET['q'] == 'quizresul') {
+            $eid = @$_GET['eid'];
+            $q = mysqli_query($con, "SELECT * FROM quiz WHERE eid='$eid'");
+            while ($row = mysqli_fetch_array($q)) {
+              $total = $row['total'];
+            }
 
-                echo '
+            echo '
                 <div class="panel" style="margin:5%">
                   <label style="color:#080C3E; font-size:31px; text-align:center;">MIS RESULTADOS</label><br>
                   <br />';
 
-                for ($i=1; $i <= $total; $i++) { 
-                  $q=mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' AND sn='$i' " );
+            for ($i = 1; $i <= $total; $i++) {
+              $q = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid' AND sn='$i' ");
 
-                  while($row=mysqli_fetch_array($q) ){
-                    $qns=$row['qns'];
-                    $qid=$row['qid'];
-                    $im=$row['image'];
-                    $qtopic=$row['topic'];
-                    $qsubtopic=$row['subtopic'];
-                    $qobjective=$row['objective'];
-                    $qcompetence=$row['competence'];
-                    $qval=$row['qval'];
-                    echo '<label style="color:green;">&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;</label> <br><br>
-                        <b>Tema: </b> '.$qtopic.'
-                    <br /><b>Subtema: </b> '.$qsubtopic.'
-                    <br /><b>Objetivo: </b> '.$qobjective.'
-                    <br /><b>Competencia: </b> '.$qcompetence.'<br /><br />
-                    <b>Valor: '.$qval.' pts.</b>';
+              while ($row = mysqli_fetch_array($q)) {
+                $qns = $row['qns'];
+                $qid = $row['qid'];
+                $im = $row['image'];
+                $qtopic = $row['topic'];
+                $qsubtopic = $row['subtopic'];
+                $qobjective = $row['objective'];
+                $qcompetence = $row['competence'];
+                $qval = $row['qval'];
+                echo '<label style="color:green;">&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;&#8887;</label> <br><br>
+                        <b>Tema: </b> ' . $qtopic . '
+                    <br /><b>Subtema: </b> ' . $qsubtopic . '
+                    <br /><b>Objetivo: </b> ' . $qobjective . '
+                    <br /><b>Competencia: </b> ' . $qcompetence . '<br /><br />
+                    <b>Valor: ' . $qval . ' pts.</b>';
 
-                    echo '<div>
-                          <b>Pregunta &nbsp;'.$i.':</b> '.$qns.'                        
+                echo '<div>
+                          <b>Pregunta &nbsp;' . $i . ':</b> ' . $qns . '                        
                           <br />
-                          <br />'; 
+                          <br />';
 
-                    if($im !== "no image"){
-                      echo '<div>
-                              <img src="qimage/'.$im.'" style="max-width:40%;width:auto;height:auto;">
+                if ($im !== "no image") {
+                  echo '<div>
+                              <img src="qimage/' . $im . '" style="max-width:40%;width:auto;height:auto;">
                             </div>';
+                }
+              }
+
+              $q = mysqli_query($con, "SELECT * FROM options WHERE qid='$qid' ");
+
+              while ($row = mysqli_fetch_array($q)) {
+
+                $qtype = $row['qtype'];
+                if ($qtype == 'closed') {
+                  $option = $row['option'];
+                  $optionid = $row['optionid'];
+
+                  $q2 = mysqli_query($con, "SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'");
+                  while ($row = mysqli_fetch_array($q2)) {
+                    $ansid = $row['ansid'];
+                    $studentansid = $row['studentansid'];
+
+                    if ($studentansid == $optionid) {
+                      if ($studentansid == $ansid) {
+                        echo '
+                            <div style="background-color:#99F975">
+                              <input type="radio" id="ans' . $i . '" name="ans' . $i . '" value="' . $optionid . '" disabled checked>' . $option . '
+                            </div><br /><br />';
+                      } else {
+                        echo '
+                            <div style="background-color:#F49393">
+                              <input type="radio" id="ans' . $i . '" name="ans' . $i . '" value="' . $optionid . '" disabled>' . $option . '
+                            </div><br /><br />';
+                      }
+                    } else {
+                      if ($ansid == $optionid) {
+                        echo '
+                            <div style="background-color:#99F975">
+                              <input type="radio" id="ans' . $i . '" name="ans' . $i . '" value="' . $optionid . '" disabled>' . $option . '
+                            </div><br /><br />';
+                      } else {
+                        echo '
+                            <div>
+                              <input type="radio" id="ans' . $i . '" name="ans' . $i . '" value="' . $optionid . '" disabled>' . $option . '
+                            </div><br /><br />';
+                      }
                     }
                   }
+                } elseif ($qtype == 'trfl') {
+                  $option = $row['option'];
+                  $optionid = $row['optionid'];
 
-                  $q=mysqli_query($con,"SELECT * FROM options WHERE qid='$qid' " );
+                  $q2 = mysqli_query($con, "SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'");
+                  while ($row = mysqli_fetch_array($q2)) {
+                    $ansid = $row['ansid'];
+                    $studentansid = $row['studentansid'];
 
-                  while($row=mysqli_fetch_array($q) ){
-                    
-                    $qtype=$row['qtype'];
-                    if($qtype=='closed'){
-                      $option=$row['option'];
-                      $optionid=$row['optionid'];   
-
-                      $q2=mysqli_query($con,"SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'" );
-                      while($row=mysqli_fetch_array($q2) ){
-                        $ansid=$row['ansid'];
-                        $studentansid=$row['studentansid'];
-
-                        if ($studentansid==$optionid) {
-                          if($studentansid == $ansid){
-                            echo'
+                    if ($studentansid == $optionid) {
+                      if ($studentansid == $ansid) {
+                        echo '
                             <div style="background-color:#99F975">
-                              <input type="radio" id="ans'.$i.'" name="ans'.$i.'" value="'.$optionid.'" disabled checked>'.$option.'
+                              <input type="radio" id="tfans' . $i . '" name="tfans' . $i . '" value="' . $optionid . '" disabled checked>' . $option . '
                             </div><br /><br />';
-                          }
-                          else{
-                            echo'
+                      } else {
+                        echo '
                             <div style="background-color:#F49393">
-                              <input type="radio" id="ans'.$i.'" name="ans'.$i.'" value="'.$optionid.'" disabled>'.$option.'
+                              <input type="radio" id="tfans' . $i . '" name="tfans' . $i . '" value="' . $optionid . '" disabled>' . $option . '
                             </div><br /><br />';
-                          }
-                        }
-                        else{
-                          if($ansid==$optionid){
-                            echo'
+                      }
+                    } else {
+                      if ($ansid == $optionid) {
+                        echo '
                             <div style="background-color:#99F975">
-                              <input type="radio" id="ans'.$i.'" name="ans'.$i.'" value="'.$optionid.'" disabled>'.$option.'
+                              <input type="radio" id="tfans' . $i . '" name="tfans' . $i . '" value="' . $optionid . '" disabled>' . $option . '
                             </div><br /><br />';
-                          }
-                          else{
-                            echo'
+                      } else {
+                        echo '
                             <div>
-                              <input type="radio" id="ans'.$i.'" name="ans'.$i.'" value="'.$optionid.'" disabled>'.$option.'
+                              <input type="radio" id="tfans' . $i . '" name="tfans' . $i . '" value="' . $optionid . '" disabled>' . $option . '
                             </div><br /><br />';
-                          }
-                        }
-                      }  
-                      
-                    }
-                    elseif($qtype=='trfl'){
-                      $option=$row['option'];
-                      $optionid=$row['optionid'];
-
-                      $q2=mysqli_query($con,"SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'" );
-                      while($row=mysqli_fetch_array($q2) ){
-                        $ansid=$row['ansid'];
-                        $studentansid=$row['studentansid'];
-
-                        if ($studentansid==$optionid) {
-                          if($studentansid == $ansid){
-                            echo'
-                            <div style="background-color:#99F975">
-                              <input type="radio" id="tfans'.$i.'" name="tfans'.$i.'" value="'.$optionid.'" disabled checked>'.$option.'
-                            </div><br /><br />';
-                          }
-                          else{
-                            echo'
-                            <div style="background-color:#F49393">
-                              <input type="radio" id="tfans'.$i.'" name="tfans'.$i.'" value="'.$optionid.'" disabled>'.$option.'
-                            </div><br /><br />';
-                          }
-                        }
-                        else{
-                          if($ansid==$optionid){
-                            echo'
-                            <div style="background-color:#99F975">
-                              <input type="radio" id="tfans'.$i.'" name="tfans'.$i.'" value="'.$optionid.'" disabled>'.$option.'
-                            </div><br /><br />';
-                          }
-                          else{
-                            echo'
-                            <div>
-                              <input type="radio" id="tfans'.$i.'" name="tfans'.$i.'" value="'.$optionid.'" disabled>'.$option.'
-                            </div><br /><br />';
-                          }
-                        }
-                      }  
-                    }
-                    else{
-                      $option=$row['option'];
-                      $optionid=$row['optionid'];
-                      $q2=mysqli_query($con,"SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'" );
-                      while($row=mysqli_fetch_array($q2) ){
-                        $roption=$row['option'];
                       }
-                      echo'<br /><b>RESPUESTA CORRECTA: </b> '.$option.' ';
-                      if($option == $roption){
-                        echo'
+                    }
+                  }
+                } else {
+                  $option = $row['option'];
+                  $optionid = $row['optionid'];
+                  $q2 = mysqli_query($con, "SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'");
+                  while ($row = mysqli_fetch_array($q2)) {
+                    $roption = $row['option'];
+                  }
+                  echo '<br /><b>RESPUESTA CORRECTA: </b> ' . $option . ' ';
+                  if ($option == $roption) {
+                    echo '
                         <div>
-                          <br /><b>Tu Respuesta: </b> <label style="background-color:#99F975"> '.$roption.'</label>
+                          <br /><b>Tu Respuesta: </b> <label style="background-color:#99F975"> ' . $roption . '</label>
                         </div>';
-                      }
-                      else{
-                        echo'
+                  } else {
+                    echo '
                         <div>
-                          <br /><b>Tu respuesta: </b><label style="background-color:#F49393"> '.$roption.'</label>
+                          <br /><b>Tu respuesta: </b><label style="background-color:#F49393"> ' . $roption . '</label>
                         </div>';
-                      }
-                      
-                    }
-                  }  
-                  echo'</div><br /><br /><br />';                             
+                  }
                 }
-                echo'
+              }
+              echo '</div><br /><br /><br />';
+            }
+            echo '
                   <b>
                     <a href="account.php?q=2" class="pull-right btn sub1" style="margin:0px;background:#9B9999; width:130px;">
                       <span class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;
@@ -497,12 +532,12 @@
                     </a>
                   </b>
                 </div>';
-              }
-            ?>
-            <!--Observaciones-->
-            <?php
-              if(@$_GET['q']== 3){
-                echo' 
+          }
+          ?>
+          <!--Observaciones-->
+          <?php
+          if (@$_GET['q'] == 3) {
+            echo ' 
                 <br><label style="color:#080C3E; font-size:35px;"> ENVIANOS TUS OBSERVACIONES</label>
                 <br><br>Puedes enviarnos un email al siguiente correo: <label style="color:blue;">div.ing.sistemas@tesi.edu.mx</label><br />
                 <div class="row">
@@ -520,8 +555,8 @@
                     <div class="col-md-9">
                       <!-- Text input-->
                       <div class="form-group">
-                        <input id="name" name="name" value="'.$name.'" class="form-control input-md" type="text" required readonly><br />  
-                        <input id="schoolnumber" name="schoolnumber" value='.$schoolnumber.' class="form-control input-md" type="number" required readonly><br />  
+                        <input id="name" name="name" value="' . $name . '" class="form-control input-md" type="text" required readonly><br />  
+                        <input id="schoolnumber" name="schoolnumber" value=' . $schoolnumber . ' class="form-control input-md" type="number" required readonly><br />  
                         <input id="subject" name="subject" placeholder="Ej. Corrección de Matricula" class="form-control input-md" type="text" required>    
                       </div>
                     </div>
@@ -535,13 +570,13 @@
                     <input type="submit" name="submit" value="ENVIAR OBSERVACIONES" class="btn btn-primary" />
                   </div>
                 </form>';
-              }
-            ?>
+          }
+          ?>
 
-            <!--Información personal-->
-            <?php
-              if(@$_GET['q']== 4){
-                echo '<div class="row">
+          <!--Información personal-->
+          <?php
+          if (@$_GET['q'] == 4) {
+            echo '<div class="row">
                         <div class="col-md-8 pull-left">
                           <h1 style="font-style: bold; color:#080C3E; font-size:35px; ">MI INFORMACIÓN PERSONAL</h1>  
                         </div>
@@ -551,7 +586,7 @@
                         <div class="col-md-4">
                           <div class="form-group">
                             <label class="control-label">Matrícula:</label>
-                            <span class="form-control sin_borde" id="span_schoolnumber">'.$schoolnumber.'</span>
+                            <span class="form-control sin_borde" id="span_schoolnumber">' . $schoolnumber . '</span>
                           </div>
                         </div>
                       </div>
@@ -560,14 +595,14 @@
                         <div class="col-md-4">
                           <div class="form-group">
                               <label class="control-label">Nombre(s):</label>
-                              <span class="form-control sin_borde" id="span_name">'.$name.'</span>
+                              <span class="form-control sin_borde" id="span_name">' . $name . '</span>
                           </div>
                         </div>
 
                         <div class="col-md-4">
                           <div class="form-group">
                               <label class="control-label">Apellidos:</label>
-                              <span class="form-control sin_borde" id="span_last_name">'.$last_name.'</span>
+                              <span class="form-control sin_borde" id="span_last_name">' . $last_name . '</span>
                           </div>
                         </div>
                       </div>
@@ -576,14 +611,14 @@
                         <div class="col-md-4">
                           <div class="form-group">
                               <label class="control-label">Carrera:</label>
-                              <span class="form-control sin_borde" id="span_career">'.$career.'</span>
+                              <span class="form-control sin_borde" id="span_career">' . $career . '</span>
                           </div>
                         </div>
 
                         <div class="col-md-4">
                           <div class="form-group">
                               <label class="control-label">Grupo:</label>
-                              <span class="form-control sin_borde" id="span_group">'.$grnum.'</span>
+                              <span class="form-control sin_borde" id="span_group">' . $grnum . '</span>
                           </div>
                         </div>
                       </div>
@@ -595,19 +630,19 @@
                         </div>
                       </div>
                       ';
-              }
-            ?>
+          }
+          ?>
 
-            <!--Change Password-->
-            <?php
-              if(@$_GET['q']== 5){
-                echo '<div class="row">
+          <!--Change Password-->
+          <?php
+          if (@$_GET['q'] == 5) {
+            echo '<div class="row">
                         <div class="col-md-8 pull-left">
                           <br><h1 style="color:#080C3E;">CAMBIO DE CONTRASEÑA</h1><br>   
                         </div>
                       </div>
 
-                      <form class="form-horizontal" name="form" action="update_student.php?q=pass&schoolnumber='.$schoolnumber.'" onSubmit="return validateForm()" method="POST">
+                      <form class="form-horizontal" name="form" action="update_student.php?q=pass&schoolnumber=' . $schoolnumber . '" onSubmit="return validateForm()" method="POST">
                         <fieldset>
                           <div class="row">
                             <div class="col-md-4">
@@ -632,11 +667,11 @@
                             </div>
                           </div>';
 
-                if(@$_GET['q7']){
-                     echo'<p style="color:red;font-size:15px;">'.@$_GET['q7'];
-                }
+            if (@$_GET['q7']) {
+              echo '<p style="color:red;font-size:15px;">' . @$_GET['q7'];
+            }
 
-                echo '<!-- Button -->
+            echo '<!-- Button -->
                           <div class="row">
                             <label class="col-md-4 control-label" for=""></label>
                             <div class="col-md-4"> 
@@ -652,23 +687,24 @@
                         </div>
                       </div>
                       ';
-              }
-            ?>
-            
-          </div>
+          }
+          ?>
+
         </div>
       </div>
     </div>
+  </div>
 
-    <!--Footer start-->
-    <div class="row footer">
-      <div class="col-md-3 box">
-        <a href="https://tesi.org.mx/" target="_blank">Página principal del Tecnológico</a>
-      </div>
-      <div class="col-md-3 box">
-        <a href="account.php?q=3">Observaciones</a>
-      </div>
+  <!--Footer start-->
+  <div class="row footer">
+    <div class="col-md-3 box">
+      <a href="https://tesi.org.mx/" target="_blank">Página principal del Tecnológico</a>
     </div>
-    <!--footer end-->
-  </body>
+    <div class="col-md-3 box">
+      <a href="account.php?q=3">Observaciones</a>
+    </div>
+  </div>
+  <!--footer end-->
+</body>
+
 </html>
