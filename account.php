@@ -225,126 +225,56 @@ include_once 'dbConnection.php';
           }
           ?>
           <!--result end-->
+          <script>
+            function fetchQuest(qid) {
+              var url = "conta.php";
 
+              $.ajax({
+                url: url,
+                type: "POST",
+                data: {
+                  qid: qid
+                }
+              }).done(function(data) {
+
+                $("#pregunta").html(data);
+              })
+            }
+          </script>
           <!--quiz start-->
           <?php
           if (@$_GET['q'] == 'quiz2') {
-
-             $eid = @$_GET['eid'];         
-
-             echo '
-             <div id="contador"></div>
-
-             <form method="post" id="formButton" action="">
-               <button type="submit" id="prevQ" name="prevQ">Anterior</button>
-               <button type="submit" id="nextQ" name="nextQ">Siguiente</button>            
-             </form>
-             <div id="respuesta"></div>
-             <script>
-               var next = document.getElementById("nextQ");
-               var prev = document.getElementById("prevQ");
-               var contadorCaja = document.getElementById("contador");
-               var cont = 0;
-
-               function cargarSumar() {
-                 cont++;
-                 contadorCaja.innerHTML = "Contador: "+cont;
-                 $("#contador").val(cont);
-           
-               }
-               function cargarRestar() {
-                   cont--;
-                   contadorCaja.innerHTML = "Contador: "+cont;
-                   $("#contador").val(cont);
-               }
-               sumar.addEventListener("click", function(event){
-                 event.preventDefault();
-                 cargarSumar();
-               });
-               restar.addEventListener("click", function(event){
-                 event.preventDefault();
-                 cargarRestar();
-               });
-
-               $("#sumar").on("click",function(){
-			
-                var valor=$("#contador").val();
-                 var url="conta.php";
-        
-                    $.ajax({
-        
-                      url:url,
-                      type:"POST",
-                      data:{valor:valor,
-                            eid:"' . $eid . '"}
-        
-                    }).done(function(data){
-        
-                          $("#secc").html(data);
-                    })    
-                });
-        
-                 $("#restar").on("click",function(){
-              
-                 var valor=$("#contador").val();
-                 var url="conta.php";
-        
-                    $.ajax({
-        
-                      url:url,
-                      type:"POST",
-                      data:{valor:valor,
-                            eid:"' . $eid . '"}
-        
-                    }).done(function(data){
-        
-                          $("#secc").html(data);
-                    })    
-                });
-            </script>';
-            
-            echo '
-            <div class="panel" id="secc">
-            </div>';
-
             $eid = @$_GET['eid'];
             $q = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid'") or die('Error157');
-
             $results = [];
             $qids = [];
+
             while ($row = $q->fetch_assoc()) {
               $results[] = $row;
             }
             for ($i = 0; $i < count($results); $i++) {
               array_push($qids, $results[$i]["qid"]);
             }
-            $longitud = count($results);
-            $actual = 3;
             $_SESSION["questions"] = $qids;
-            echo
-            '<div id="container">
-              <div class="pregunta">'
-              . $_SESSION["questions"][1] .
-              '</div>
-              <div id="botonera">';
-            if($actual < $longitud){
-              if($actual == 0){
-                echo '<button type="submit" id="nextQ" name="nextQ" value='.$_SESSION["questions"][$actual+1].'>Siguiente</button>';
-              }else{
-                echo '<button type="submit" id="prevQ" name="prevQ" value='.$_SESSION["questions"][$actual-1].'>Anterior</button>
-                      <button type="submit" id="nextQ" name="nextQ" value='.$_SESSION["questions"][$actual+1].'>Siguiente</button>';
-              }
-            }else{
-              echo '<button type="submit" id="finish" name="finish">Terminar</button>';
-            }
-              echo'
-              </div>
-            </div>';
+            $_SESSION["current_question"] = isset($_SESSION["current_question"]) ? $_SESSION["current_question"] : $_SESSION["questions"][0];
+
+            echo print_r($_SESSION["current_question"]);
+
+            echo '
+            <script type="text/javascript">
+              fetchQuest("' . $_SESSION["current_question"] . '");
+            </script>';
+
+            echo '
+            <div class="panel" id="pregunta">
+            </div>
+            ';
           }
           ?>
           <!--quiz end-->
 
           <?php
+
           //history start
           if (@$_GET['q'] == 2) {
             $q = mysqli_query($con, "SELECT * FROM qualification WHERE schoolnumber='$schoolnumber' ORDER BY date DESC ") or die('Error197');
