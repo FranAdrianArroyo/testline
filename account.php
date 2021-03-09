@@ -37,16 +37,6 @@
         return false;
       }
     }
-
-    $("#next_question").click((event) => {
-      event.preventDefault();
-    });
-    $("#back_question").click((event) => {
-      event.preventDefault();
-    });
-    $("#end_quiz").click((event) => {
-      event.preventDefault();
-    });
   </script>
 </head>
 
@@ -178,7 +168,7 @@ include_once 'dbConnection.php';
                         <td>' . $fd . '</td>
                         <td>
                           <b>
-                            <a href="account.php?q=quiz2&eid=' . $eid . '&t=' . $total . '" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
+                            <a href="account.php?q=quiz2&eid=' . $eid . '" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
                               <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;
                               <span class="title1">
                                 <b>Iniciar</b>
@@ -243,58 +233,21 @@ include_once 'dbConnection.php';
             $eid = @$_GET['eid'];
             $q = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid'") or die('Error157');
 
-            $index = isset($_SESSION["current_question"]) ? $_SESSION["current_question"] : 0;
-
-            $_SESSION["current_question"] = $index;
             $results = [];
+            $qids = [];
             while ($row = $q->fetch_assoc()) {
               $results[] = $row;
             }
-
-            echo "Current index : " . $index . " Total count:" . count($results) . " Current session: " . $_SESSION['current_question'];
-
-
-            if ($index == 0) {
-              echo '<form action="" method="post">';
-              echo '<button type="submit" name="next_question" id="next_question">Siguiente</button>';
-              echo '</form>';
-            } elseif ($index == count($results) - 1) {
-              echo '<form action="" method="post">';
-              echo '<button type="submit" name="back_question" id="back_question">Atrás</button>';
-              echo '</form>';
-              echo '<form action="guardar_respuestas" method="post">';
-              // hidden $_SESSION["RESPUESTAS"];
-              echo '<button type="submit" name="end_quiz" id="end_quiz">Terminar</button>';
-              echo '</form>';
-            } else {
-              echo '<form action="" method="post">';
-              echo '<button type="submit" name="back_question" id="back_question">Atrás</button>';
-              echo '<button type="submit" name="next_question" id="next_question">Siguiente</button>';
-              echo '</form>';
+            for ($i = 0; $i < count($results); $i++) {
+              array_push($qids, $results[$i]["qid"]);
             }
-
-            if (isset($_POST['next_question'])) {
-              if ($index < count($results) - 1) {
-                $_SESSION['current_question'] += 1;
-              }
-            } else if (isset($_POST['back_question'])) {
-              if ($index > 0) {
-                $_SESSION['current_question'] -= 1;
-              }
-            }
-
-            echo '
-                <div class="panel">
-                  <div id="question"> 
-                    <h1>' . $results[$index]['qns'] . '</h1>
-                    <div id="answer">
-                      <h1>Grillin</h1>';
-            echo '<button type="button">Siguiente</button>';
-            echo '
-                    </div>
-                  </div>
-                </div>
-                ';
+            $_SESSION["questions"] = $qids;
+            echo
+            '<div id="container">
+              <div class="pregunta">'
+              . $_SESSION["questions"][1] .
+              '</div>
+            </div>';
           }
           ?>
           <!--quiz end-->
