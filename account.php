@@ -17,6 +17,7 @@
   <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js" type="text/javascript"></script>
   <script src="js/Crono.js" type="text/javascript"></script>
+  <script src="js/lStorage.js" type="text/javascript"></script>
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
   <!--alert message-->
@@ -225,6 +226,8 @@ include_once 'dbConnection.php';
           }
           ?>
           <!--result end-->
+
+          <!--quiz start-->
           <script>
             function fetchQuest(qid) {
               var url = "conta.php";
@@ -241,7 +244,7 @@ include_once 'dbConnection.php';
               })
             }
           </script>
-          <!--quiz start-->
+
           <?php
           if (@$_GET['q'] == 'quiz2') {
             $eid = @$_GET['eid'];
@@ -258,8 +261,6 @@ include_once 'dbConnection.php';
             $_SESSION["questions"] = $qids;
             $_SESSION["current_question"] = isset($_SESSION["current_question"]) ? $_SESSION["current_question"] : $_SESSION["questions"][0];
 
-            echo print_r($_SESSION["current_question"]);
-
             echo '
             <script type="text/javascript">
               fetchQuest("' . $_SESSION["current_question"] . '");
@@ -271,8 +272,8 @@ include_once 'dbConnection.php';
             ';
           }
           ?>
-          <!--quiz end-->
 
+          <!--quiz end-->
           <?php
 
           //history start

@@ -20,6 +20,13 @@
     <?php if(@$_GET['w'])
       {echo'<script>alert("'.@$_GET['w'].'");</script>';}
     ?>
+    <?php
+        include_once 'dbConnection.php';
+        session_start();
+        if ((isset($_SESSION['schoolnumber']))) {
+          header("location:account.php?q=1");
+        }
+    ?>    
   </head>
 
   <body>
