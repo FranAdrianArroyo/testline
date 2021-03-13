@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 03-03-2021 a las 16:43:05
+-- Tiempo de generación: 13-03-2021 a las 01:29:20
 -- Versión del servidor: 5.7.26
 -- Versión de PHP: 7.3.5
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `email` varchar(50) NOT NULL,
   `password` varchar(500) NOT NULL,
   PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `admin`
@@ -60,6 +60,15 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `qid` text NOT NULL,
   `ansid` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `answer`
+--
+
+INSERT INTO `answer` (`qid`, `ansid`) VALUES
+('60413ef4afc02', '60413ef4b9884'),
+('60413ef500d47', '60413ef5075c8'),
+('60413ef5214ac', '60413ef527cbe');
 
 -- --------------------------------------------------------
 
@@ -92,6 +101,18 @@ CREATE TABLE IF NOT EXISTS `options` (
   `optionid` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `options`
+--
+
+INSERT INTO `options` (`qid`, `qtype`, `option`, `optionid`) VALUES
+('60413ef4afc02', 'trfl', 'Verdadero', '60413ef4b9884'),
+('60413ef4afc02', 'trfl', 'Falso', '60413ef4b9887'),
+('60413ef500d47', 'trfl', 'Verda', '60413ef5075c4'),
+('60413ef500d47', 'trfl', 'Fals', '60413ef5075c8'),
+('60413ef5214ac', 'trfl', 'Verdadero', '60413ef527cbe'),
+('60413ef5214ac', 'trfl', 'Falso', '60413ef527cc1');
+
 -- --------------------------------------------------------
 
 --
@@ -109,6 +130,13 @@ CREATE TABLE IF NOT EXISTS `qualification` (
   `porcent` float NOT NULL,
   `date` timestamp NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `qualification`
+--
+
+INSERT INTO `qualification` (`eid`, `schoolnumber`, `total_score`, `final_score`, `right_ans`, `wrong_ans`, `porcent`, `date`) VALUES
+('60413ea600e2a', '201635951', 10, 7, 2, 1, 70, '2021-03-12 03:54:55');
 
 -- --------------------------------------------------------
 
@@ -131,6 +159,15 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `sn` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `questions`
+--
+
+INSERT INTO `questions` (`eid`, `qid`, `qval`, `topic`, `subtopic`, `objective`, `competence`, `qns`, `image`, `choice`, `sn`) VALUES
+('60413ea600e2a', '60413ef4afc02', 5, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las auditorÃ­as informÃ¡ticas', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'pregunta 1', 'no image', 4, 1),
+('60413ea600e2a', '60413ef500d47', 3, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las auditorÃ­as informÃ¡ticas', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'pregunta 2', 'no image', 4, 2),
+('60413ea600e2a', '60413ef5214ac', 2, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las auditorÃ­as informÃ¡ticas', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'pregunta 3', 'no image', 4, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -151,6 +188,13 @@ CREATE TABLE IF NOT EXISTS `quiz` (
   `start_date` timestamp NOT NULL,
   `final_date` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `quiz`
+--
+
+INSERT INTO `quiz` (`eid`, `employnumber`, `subject`, `title`, `groupnum`, `total`, `time`, `description`, `date`, `start_date`, `final_date`) VALUES
+('60413ea600e2a', 4505, 'Seguridad informÃ¡tica', 'Prueba', '1951', 3, 5, 'aoekÃ±rjlqewrhewor', '2021-03-13 00:45:20', '2021-03-04 20:09:00', '2021-03-22 15:00:00');
 
 -- --------------------------------------------------------
 
@@ -188,6 +232,18 @@ CREATE TABLE IF NOT EXISTS `results` (
   `option` varchar(500) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
+--
+-- Volcado de datos para la tabla `results`
+--
+
+INSERT INTO `results` (`schoolnumber`, `eid`, `qid`, `ansid`, `studentansid`, `option`) VALUES
+('201635951', '60413ea600e2a', '60413ef4afc02', '60413ef4b9884', '60413ef4b9884', 'opcion'),
+('201635951', '60413ea600e2a', '60413ef500d47', '60413ef5075c8', '60413ef5075c4', 'opcion'),
+('201635951', '60413ea600e2a', '60413ef5214ac', '60413ef527cbe', '60413ef527cbe', 'opcion'),
+('201635954', '60413ea600e2a', '60413ef4afc02', '60413ef4b9884', '', 'opcion'),
+('201635954', '60413ea600e2a', '60413ef500d47', '60413ef5075c8', '', 'opcion'),
+('201635954', '60413ea600e2a', '60413ef5214ac', '60413ef527cbe', '', 'opcion');
+
 -- --------------------------------------------------------
 
 --
@@ -201,6 +257,13 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `password` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
   PRIMARY KEY (`employnumber`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `teacher`
+--
+
+INSERT INTO `teacher` (`employnumber`, `name`, `password`) VALUES
+(4505, 'Daniel Clemente', '149ef6419512be56a93169cd5e6fa8fd');
 
 -- --------------------------------------------------------
 
@@ -216,8 +279,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `career` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `schoolnumber` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `groupnum` text COLLATE utf8_unicode_ci NOT NULL,
+  `email` text COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`name`, `last_name`, `gender`, `career`, `schoolnumber`, `groupnum`, `email`, `password`) VALUES
+('Francisco Adrian', 'Arroyo Ponce', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201635951', '1951', '', 'd1134e43fa12e17c934dbb486ab6c6d2'),
+('Adrian', 'Perez', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201635954', '1951', 'megasadico@gmail.com', 'a3085373b79344412cc95dc836d1caf7');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -92,11 +92,12 @@ include_once 'dbConnection.php';
           <ul class="nav navbar-nav">
             <li <?php if (@$_GET['q'] == 1) echo 'class="active"'; ?>><a href="account.php?q=1"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Evaluaciones<span class="sr-only">(current)</span></a></li>
             <li <?php if (@$_GET['q'] == 2 || @$_GET['q'] == 'quizresul') echo 'class="active"'; ?>><a href="account.php?q=2"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Calificaciones</a></li>
-            <li class="dropdown <?php if (@$_GET['q'] == 4 || @$_GET['q'] == 5) echo 'active"'; ?>">
+            <li class="dropdown <?php if (@$_GET['q'] == 4 || @$_GET['q'] == 5 || @$_GET['q'] == 6) echo 'active"'; ?>">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Datos personales</a>
               <ul class="dropdown-menu">
                 <li><a href="account.php?q=4">Información personal</a></li>
-                <li><a href="account.php?q=5">Cambiar contraseña</a></li>
+                <li><a href="account.php?q=5">Cambiar correo electrónico</a></li>
+                <li><a href="account.php?q=6">Cambiar contraseña</a></li>
               </ul>
             </li>
           </ul>
@@ -693,42 +694,46 @@ include_once 'dbConnection.php';
                       <h4><label style="color:black;">NOTA:</label>  Si existe algún error o duda puedes enviar un mensaje en el apartado observaciones.De igual forma puedes solicitar ayuda a alguno de tus profesores.</h4> 
                     </div>
                   </div>';
-            $q = mysqli_query($con, "SELECT email FROM user WHERE schoolnumber=$schoolnumber") or die('Error mail');
-            while($row = mysqli_fetch_array($q)){
-              $email = $row['email'];
-            }
+          }
+          ?>
 
-            echo '<div class="row">
-                    <div class="col-md-8 pull-left">
-                      <h1 style="font-style: bold; color:#080C3E; font-size:35px; ">CORREO ELECTRÓNICO</h1>  
-                    </div>
-                  </div>
-
-                  <form class="form-horizontal" name="form" action="update_student.php?q=mail&schoolnumber=' . $schoolnumber . '" method="POST">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label class="control-label">Correo electrónico del alumno:</label> <label style="color:red;">*</label>
-                          <input class="form-control required" id="usermail" name="usermail" type="email" value="'.$email.'">
-                        </div>
+          <!--Change email-->
+          <?php
+            if (@$_GET['q'] == 5) {
+              $q = mysqli_query($con, "SELECT email FROM user WHERE schoolnumber=$schoolnumber") or die('Error mail');
+              while($row = mysqli_fetch_array($q)){
+                $email = $row['email'];
+              }
+  
+              echo '<div class="row">
+                      <div class="col-md-8 pull-left">
+                        <h1 style="font-style: bold; color:#080C3E; font-size:35px; ">CORREO ELECTRÓNICO</h1>  
                       </div>
                     </div>
-                    <div class="col-md-4"> 
-                      <input  type="submit" class="btn btn-primary" value="GUARDAR" class="btn btn-primary"/>
-                    </div>';
-                    if (@$_GET['q7']) {
-                      echo '<p style="color:red;font-size:15px;">' . @$_GET['q7'];
-                    }
-            echo'<br />
-                  </form>
-                  ';
-
-          }
+  
+                    <form class="form-horizontal" name="form" action="update_student.php?q=mail&schoolnumber=' . $schoolnumber . '" method="POST">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label class="control-label">Correo electrónico del alumno:</label> <label style="color:red;">*</label>
+                            <input class="form-control required" id="usermail" name="usermail" type="email" value="'.$email.'">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4"> 
+                        <input  type="submit" class="btn btn-primary" value="GUARDAR" class="btn btn-primary"/>
+                      </div>';
+                      if (@$_GET['q7']) {
+                        echo '<p style="color:red;font-size:15px;">' . @$_GET['q7'];
+                      }
+              echo'<br />
+                    </form>';
+            }
           ?>
 
           <!--Change Password-->
           <?php
-          if (@$_GET['q'] == 5) {
+          if (@$_GET['q'] == 6) {
             echo '<div class="row">
                         <div class="col-md-8 pull-left">
                           <br><h1 style="color:#080C3E;">CAMBIO DE CONTRASEÑA</h1><br>   

@@ -18,16 +18,16 @@
     }
 
     if($actpass !== $pass){
-      header("location:account.php?q=5&q7=La contraseña actual no concuerda");
+      header("location:account.php?q=6&q7=La contraseña actual no concuerda");
     }
     else{
       if($newpass !== $newpasscon){
-        header("location:account.php?q=5&q7=Las contraseñas nuevas no coinciden");
+        header("location:account.php?q=6&q7=Las contraseñas nuevas no coinciden");
       }
       else{
         $newpass = md5($newpass);
         $qpass=mysqli_query($con,"UPDATE `user` SET `password`= '$newpass' WHERE  schoolnumber = '$schnum'")or die('Error123');
-        header("location:account.php?q=5&q7=Se cambió la contraseña");
+        header("location:account.php?q=6&q7=Se cambió la contraseña");
       }
     }
   }
