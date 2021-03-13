@@ -4,7 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Examen Online  | |  Tecnológico de Estudios Superiores de Ixtapaluca
+    <title>TestLine | |
+      Tecnológico de Estudios Superiores de Ixtapaluca
     </title>
 
     <link rel="shortcut icon" href="image/logo.png" />
@@ -34,13 +35,13 @@
       <div class="row">
         <div class="col-lg-6">
           <img src="image/h1_tesi.png" style="height: 75px;">
-          <span class="logo">Sistema de Exámenes Online</span>
+          <span class="logo">TestLine TESI</span>
         </div>
         <div class="col-md-2 col-md-offset-4">
           <a href="#" class="pull-right btn sub1" data-toggle="modal" data-target="#myModal">
             <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;
             <span class="title1">
-              <b>Acceso Alumnos</b>
+              <b>Iniciar Sesión</b>
             </span>
           </a>
         </div>
@@ -155,7 +156,40 @@
       <div class="col-md-3 box">
         <a href="https://tesi.org.mx/" target="_blank">Página principal del Tecnológico</a>
       </div>
-    </div>
+      <div class="col-md-3 box">
+        <a href="#" data-toggle="modal" data-target="#VideoTutorial">Video Tutorial</a>
+      </div>
+    </div>    
+
+    <!--Modal for teacher login-->
+	  <div class="modal fade" id="VideoTutorial">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;
+              </span>
+              <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">
+              <span style="color:orange;font-family:'typo' ">Tutorial</span>
+            </h4>
+          </div>
+          <div class="modal-body title1">
+            <div class="row">
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-6">
+                <div class="video">
+                </div>
+              </div>
+              <div class="col-md-3">
+              </div>
+            </div>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     <!--footer end-->
   </body>
 </html>

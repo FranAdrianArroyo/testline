@@ -175,3 +175,29 @@ hr {
     word-wrap: break-word;
     background-color: #9acd32;
 }
+
+.qPanel {
+    background-color: rgba(229, 243, 102, 0.76);
+    margin: 50px;
+    padding: 40px;
+    font: 25px "Century Gothic", "Times Roman", sans-serif;
+}
+
+.qQtn {
+    background-color: rgb(109, 178, 243);
+    padding: 20px;
+    font: 25px "Century Gothic", "Times Roman", sans-serif;
+}
+
+.qInfo {
+    background-color: rgb(201, 109, 243);
+    padding: 10px;
+    font: 15px "Century Gothic", "Times Roman", sans-serif;
+    text-align: justify;
+}
+
+.qOpt {
+    background-color: rgb(28, 245, 144);
+    padding: 5px;
+    font: 15px "Century Gothic", "Times Roman", sans-serif;
+}

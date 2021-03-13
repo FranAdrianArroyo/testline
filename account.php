@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Examen Online | |
+  <title>TestLine | |
     Tecnológico de Estudios Superiores de Ixtapaluca
   </title>
 
@@ -17,7 +17,6 @@
   <script src="js/jquery.js" type="text/javascript"></script>
   <script src="js/bootstrap.min.js" type="text/javascript"></script>
   <script src="js/Crono.js" type="text/javascript"></script>
-  <script src="js/lStorage.js" type="text/javascript"></script>
   <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
   <!--alert message-->
@@ -48,7 +47,7 @@ include_once 'dbConnection.php';
   <div class="header">
     <div class="row">
       <div class="col-lg-6">
-        <span class="logo">Sistema de Exámenes Online</span>
+        <span class="logo">TestLine TESI</span>
       </div>
       <div class="col-md-4 col-md-offset-2">
         <?php
@@ -168,7 +167,7 @@ include_once 'dbConnection.php';
                         <td>' . $fd . '</td>
                         <td>
                           <b>
-                            <a href="account.php?q=quiz2&eid=' . $eid . '" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
+                            <a href="account.php?q=quiz2&eid=' . $eid . '&n=1&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
                               <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;
                               <span class="title1">
                                 <b>Iniciar</b>
@@ -228,48 +227,138 @@ include_once 'dbConnection.php';
           <!--result end-->
 
           <!--quiz start-->
-          <script>
-            function fetchQuest(qid) {
-              var url = "conta.php";
-
-              $.ajax({
-                url: url,
-                type: "POST",
-                data: {
-                  qid: qid
-                }
-              }).done(function(data) {
-
-                $("#pregunta").html(data);
-              })
-            }
-          </script>
-
           <?php
           if (@$_GET['q'] == 'quiz2') {
-            $eid = @$_GET['eid'];
-            $q = mysqli_query($con, "SELECT * FROM questions WHERE eid='$eid'") or die('Error157');
-            $results = [];
-            $qids = [];
+            $eid=@$_GET['eid'];
+            $sn=@$_GET['n'];
+            $total=@$_GET['t'];
+            $q=mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " );
+            echo '
+            <div class="qPanel" style="margin:5%">';
 
-            while ($row = $q->fetch_assoc()) {
-              $results[] = $row;
+            while($row=mysqli_fetch_array($q) ){
+              $qns=$row['qns'];
+              $qid=$row['qid'];
+              $im=$row['image'];
+              $qtopic=$row['topic'];
+              $qsubtopic=$row['subtopic'];
+              $qobjective=$row['objective'];
+              $qcompetence=$row['competence'];
+              $qval=$row['qval'];
+
+              echo '
+              <div class="qQtn">
+                <b>Pregunta &nbsp;'.$sn.':</b> '.$qns.'                        
+                <br />
+              </div>
+              <br />'; 
+                    
+              echo'
+              <div class="qInfo">
+                <b>Tema: </b> '.$qtopic.'
+                <br /><b>Subtema: </b> '.$qsubtopic.'
+                <br /><b>Objetivo: </b> '.$qobjective.'
+                <br /><b>Competencia: </b> '.$qcompetence.'<br />
+                <b>Valor: '.$qval.' pts.</b><br />
+              </div>
+              <br />'; 
+
+              if($im !== "no image"){
+                echo '<div>
+                        <img src="qimage/'.$im.'" style="max-width:50%;width:auto;height:auto;">
+                      </div><br />';
+              }
             }
-            for ($i = 0; $i < count($results); $i++) {
-              array_push($qids, $results[$i]["qid"]);
-            }
-            $_SESSION["questions"] = $qids;
-            $_SESSION["current_question"] = isset($_SESSION["current_question"]) ? $_SESSION["current_question"] : $_SESSION["questions"][0];
 
             echo '
-            <script type="text/javascript">
-              fetchQuest("' . $_SESSION["current_question"] . '");
-            </script>';
+              <form action="update_student.php?q=prueba&eid='.$eid.'&qid='.$qid.'&n='.$sn.'&t='.$total.'&scn='.$schoolnumber.'" method="POST">';
+
+            $q=mysqli_query($con,"SELECT * FROM options WHERE qid='$qid' " );
+            echo'<div class="qOpt">';
+
+            while($row=mysqli_fetch_array($q) ){
+              $qtype=$row['qtype'];
+              
+              if($qtype=='trfl' || $qtype=='closed'){
+                $option=$row['option'];
+                $optionid=$row['optionid'];
+                $ansid = "vacio";
+                $qans=mysqli_query($con,"SELECT * FROM results WHERE eid='$eid' AND qid='$qid' AND schoolnumber ='$schoolnumber'" );
+                
+                while($row=mysqli_fetch_array($qans) ){
+                  $ansid=$row['studentansid'];
+                }
+
+                if($ansid == $optionid){
+                  echo'<input type="radio" id="ans'.$sn.'" name="ans'.$sn.'" value="'.$optionid.'" checked>'.$option.'<br />';
+                }
+                else{
+                  echo'<input type="radio" id="ans'.$sn.'" name="ans'.$sn.'" value="'.$optionid.'">'.$option.'<br />';           
+                }
+              }
+              else{
+                $option=$row['option'];
+                $optionid=$row['optionid'];
+                echo'<input type="text" id="ansop'.$sn.'" name="ansop'.$sn.'" placeholder="Escribe tu respuesta aqui..." style="width: 500px;" ><br />';
+              }
+            }
+            echo'</div>';
+            echo '
+            <br />
+                <div id="botonera">';  
+
+            if($sn==1){
+              echo'
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-primary" id="question" name="question" value="SIGUIENTE">
+                        SIGUIENTE
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>&nbsp;
+                      </button>
+                    </div>
+                  </div>';
+            }
+            elseif($sn>1 && $sn < $total){
+              echo'
+                  <div class="row">
+                    <div class="col-md-10">
+                      <button type="submit" class="btn btn-primary" id="question" name="question" value="ANTERIOR">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;
+                        ANTERIOR
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-primary" id="question" name="question" value="SIGUIENTE">
+                        SIGUIENTE
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>&nbsp;
+                      </button>
+                    </div>
+                  </div>';
+            }
+            else{
+              echo'
+                  <div class="row">
+                    <div class="col-md-10">
+                      <button type="submit" class="btn btn-primary" id="question" name="question" value="ANTERIOR">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;
+                        ANTERIOR
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-primary" id="question" name="question" value="FINALIZAR">
+                        FINALIZAR
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>';
+            }
 
             echo '
-            <div class="panel" id="pregunta">
-            </div>
-            ';
+                </div>
+              </form>
+            </div>';
           }
           ?>
 
