@@ -32,6 +32,16 @@
     }
   }
 
+  //change mail
+  if(@$_GET['q']== 'mail'){
+    $usermail = $_POST['usermail'];
+    $schnum=@$_GET['schoolnumber'];
+
+    $qmail=mysqli_query($con,"UPDATE `user` SET `email`= '$usermail' WHERE  schoolnumber = '$schnum'")or die('Error123');
+    header("location:account.php?q=4&q7=Dirección de correo electrónico guardada");     
+    
+  }
+
   //save answers
   if(@$_GET['q']== 'prueba'){
     $eid=@$_GET['eid'];

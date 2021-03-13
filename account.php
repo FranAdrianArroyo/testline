@@ -642,59 +642,87 @@ include_once 'dbConnection.php';
           <?php
           if (@$_GET['q'] == 4) {
             echo '<div class="row">
-                        <div class="col-md-8 pull-left">
-                          <h1 style="font-style: bold; color:#080C3E; font-size:35px; ">MI INFORMACIÓN PERSONAL</h1>  
+                    <div class="col-md-8 pull-left">
+                      <h1 style="font-style: bold; color:#080C3E; font-size:35px; ">MI INFORMACIÓN PERSONAL</h1>  
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Matrícula:</label>
+                        <span class="form-control sin_borde" id="span_schoolnumber">' . $schoolnumber . '</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Nombre(s):</label>
+                        <span class="form-control sin_borde" id="span_name">' . $name . '</span>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Apellidos:</label>
+                        <span class="form-control sin_borde" id="span_last_name">' . $last_name . '</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Carrera:</label>
+                        <span class="form-control sin_borde" id="span_career">' . $career . '</span>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label class="control-label">Grupo:</label>
+                        <span class="form-control sin_borde" id="span_group">' . $grnum . '</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-8 pull-left">
+                      <h4><label style="color:black;">NOTA:</label>  Si existe algún error o duda puedes enviar un mensaje en el apartado observaciones.De igual forma puedes solicitar ayuda a alguno de tus profesores.</h4> 
+                    </div>
+                  </div>';
+            $q = mysqli_query($con, "SELECT email FROM user WHERE schoolnumber=$schoolnumber") or die('Error mail');
+            while($row = mysqli_fetch_array($q)){
+              $email = $row['email'];
+            }
+
+            echo '<div class="row">
+                    <div class="col-md-8 pull-left">
+                      <h1 style="font-style: bold; color:#080C3E; font-size:35px; ">CORREO ELECTRÓNICO</h1>  
+                    </div>
+                  </div>
+
+                  <form class="form-horizontal" name="form" action="update_student.php?q=mail&schoolnumber=' . $schoolnumber . '" method="POST">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="control-label">Correo electrónico del alumno:</label> <label style="color:red;">*</label>
+                          <input class="form-control required" id="usermail" name="usermail" type="email" value="'.$email.'">
                         </div>
                       </div>
+                    </div>
+                    <div class="col-md-4"> 
+                      <input  type="submit" class="btn btn-primary" value="GUARDAR" class="btn btn-primary"/>
+                    </div>';
+                    if (@$_GET['q7']) {
+                      echo '<p style="color:red;font-size:15px;">' . @$_GET['q7'];
+                    }
+            echo'<br />
+                  </form>
+                  ';
 
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <label class="control-label">Matrícula:</label>
-                            <span class="form-control sin_borde" id="span_schoolnumber">' . $schoolnumber . '</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <label class="control-label">Nombre(s):</label>
-                              <span class="form-control sin_borde" id="span_name">' . $name . '</span>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <label class="control-label">Apellidos:</label>
-                              <span class="form-control sin_borde" id="span_last_name">' . $last_name . '</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <label class="control-label">Carrera:</label>
-                              <span class="form-control sin_borde" id="span_career">' . $career . '</span>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                              <label class="control-label">Grupo:</label>
-                              <span class="form-control sin_borde" id="span_group">' . $grnum . '</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-8 pull-left">
-                          <h4><label style="color:black;">NOTA:</label>  Si existe algún error o duda puedes enviar un mensaje en el apartado observaciones.De igual forma puedes solicitar ayuda a alguno de tus profesores.</h4> 
-                          
-                        </div>
-                      </div>
-                      ';
           }
           ?>
 
