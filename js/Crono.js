@@ -1,7 +1,5 @@
 /////////////CRONOMETRO/////////////////////////
 function start(time){
-   document.getElementById('test').style.display="block"; 
-   $('#start').remove(); 
    timeLimit = time; //tiempo en minutos
    conteo = new Date(timeLimit * 60000);
    cuenta();
@@ -17,11 +15,13 @@ function regresiva(){
    }
    else{
       clearInterval(intervaloRegresivo);
-      alert("Se acabo el tiempo");
-      $('#sent').trigger('click');
+      alert("Se acabo el tiempo destinado para tu evaluación.\n Se enviarán las respuestas obtenidas hasta ahora");
+      $('#finish_btn').trigger('click');
    }
 
-   document.getElementById('count').childNodes[0].nodeValue = 
+   document.getElementById('count').childNodes[0].nodeValue = "Tiempo restante: " +
    conteo.getMinutes() + ":" + conteo.getSeconds();
+
+   document.getElementById('time').value = conteo.getTime()/60000;
 }
 

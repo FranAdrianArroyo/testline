@@ -161,7 +161,7 @@ include_once 'dbConnection.php';
                         <td>' . $c++ . '</td>
                         <td>' . $title . '</td>
                         <td>' . $sub . '</td>
-                        <td>' . $title . '</td>
+                        <td>' . $total . '</td>
                         <td>' . $intro . '</td>
                         <td>' . $time . '&nbsp;min</td>
                         <td>' . $sd . '</td>
@@ -234,7 +234,37 @@ include_once 'dbConnection.php';
             $sn=@$_GET['n'];
             $total=@$_GET['t'];
             $q=mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' AND sn='$sn' " );
+            $q2=mysqli_query($con,"SELECT * FROM results WHERE eid='$eid' AND schoolnumber='$schoolnumber' " );
+            $count = mysqli_num_rows($q2);
+
+            if($count == 0){
+
+              $q3 = mysqli_query($con, "SELECT * FROM quiz WHERE eid = '$eid'");
+              while($row3 = mysqli_fetch_array($q3)){
+                $left_time = $row3['time'];
+              }
+            }
+            else{
+              while($row2 = mysqli_fetch_array($q2)){
+                $left_time = $row2['left_time'];
+              }
+            }
+
+            echo'
+            <script>
+              start('.$left_time.');
+            </script>
+            ';
+
+
             echo '
+            <div class="row">
+              <div class="col-md-10">
+              </div>
+              <div class="col-md-2" id="count">
+                Tiempo restante:                 
+              </div>
+            </div>
             <div class="qPanel" style="margin:5%">';
 
             while($row=mysqli_fetch_array($q) ){
@@ -272,10 +302,11 @@ include_once 'dbConnection.php';
             }
 
             echo '
-              <form action="update_student.php?q=prueba&eid='.$eid.'&qid='.$qid.'&n='.$sn.'&t='.$total.'&scn='.$schoolnumber.'" method="POST">';
+              <form action="update_student.php?q=answer&eid='.$eid.'&qid='.$qid.'&n='.$sn.'&t='.$total.'&scn='.$schoolnumber.'" method="POST">';
 
             $q=mysqli_query($con,"SELECT * FROM options WHERE qid='$qid' " );
-            echo'<div class="qOpt">';
+            echo'<div class="qOpt">
+                  <input type="hidden" name="time" id="time" value="'.$left_time.'">';
 
             while($row=mysqli_fetch_array($q) ){
               $qtype=$row['qtype'];
@@ -348,7 +379,7 @@ include_once 'dbConnection.php';
                       </button>
                     </div>
                     <div class="col-md-2">
-                      <button type="submit" class="btn btn-primary" id="question" name="question" value="FINALIZAR">
+                      <button type="submit" class="btn btn-primary" id="finish_btn" name="finish_btn" value="FINALIZAR">
                         FINALIZAR
                         <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
                       </button>
