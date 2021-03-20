@@ -111,8 +111,54 @@
       </div>
     </div>
 
-    <!--Modal for career chief login-->
-	  <div class="modal fade" id="login_career-chief">
+    <!--Modal for admin login-->
+    <div class="modal fade" id="login_admin">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;
+              </span>
+              <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">
+              <span style="color:#879E0F;font-family:'typo'; font-size: 30px;">INICIO DE SESIÓN ADMINISTRADOR</span>
+            </h4>
+          </div>
+          <div class="modal-body title1">
+            <div class="row">
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-6">
+                <form role="form" method="post" action="admon.php?q=index.php">
+                  <div class="form-group">
+                    <label>Ingrese su nombre usuario: </label>
+                    <input type="text" name="unamead" maxlength="21"  placeholder="&#128100;   Ej. administrador" class="form-control"/> 
+                  </div>
+                  <div class="form-group">
+                    <label>Ingrese su contraseña: </label>
+                    <input type="password" name="passwordad" maxlength="25" placeholder="&#128273;   **********" class="form-control"/>
+                  </div>
+                  <div class="form-group" align="center">
+                    <button type="submit" class="btn btn-primary">INGRESAR</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
+                  </div>
+                </form>
+                <a href="#" data-toggle="modal" data-target="#login_teacher" data-dismiss="modal">Acceso para Profesores</a>
+                <br><a href="#" data-toggle="modal" data-target="#login_jefes" data-dismiss="modal">Acceso para Jefes de Carrera</a>
+              </div>
+              <div class="col-md-3">
+              </div>
+            </div>
+          </div>
+          <!--<div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>-->
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!--Modal for admin login-->
+	  <div class="modal fade" id="login_jefes">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -130,7 +176,7 @@
               <div class="col-md-3">
               </div>
               <div class="col-md-6">
-                <form role="form" method="post" action="career-chief.php?q=index.php">
+                <form role="form" method="post" action="admin.php?q=index.php">
                   <div class="form-group">
                     <label>Ingrese su usuario: </label>
                     <input type="text" name="uname" maxlength="21"  placeholder="&#128231;   Ej. admin@admin.com" class="form-control"/> 
@@ -145,6 +191,7 @@
                   </div>
                 </form>
                 <a href="#" data-toggle="modal" data-target="#login_teacher" data-dismiss="modal">Acceso para Profesores</a>
+                <br><a href="#" data-toggle="modal" data-target="#login_admin" data-dismiss="modal">Acceso para Administrador</a>
               </div>
               <div class="col-md-3">
               </div>
@@ -190,7 +237,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
                   </div>
                 </form>
-                <a href="#" data-toggle="modal" data-target="#login_career-chief" data-dismiss="modal">Acceso para Jefes de Carrera</a>
+                <a href="#" data-toggle="modal" data-target="#login_jefes" data-dismiss="modal">Acceso para Jefes de Carrera</a>
+                <a href="#" data-toggle="modal" data-target="#login_admin" data-dismiss="modal">Acceso para Administrador</a>
               </div>
               <div class="col-md-3">
               </div>

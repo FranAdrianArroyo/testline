@@ -383,20 +383,37 @@ include_once 'dbConnection.php';
                 <div id="botonera">';  
 
             $qPagi = mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' " );
-            $countPagi = 50;
+            $countPagi = mysqli_num_rows($qPagi);
+            $limit = 10;
+
+            echo' <ul class="pagination pagination-sm">'; 
+
+            if(($countPagi-$limit)>=1){
+              if(($sn+$limit)>$countPagi){
+                for($i=$sn; $i<=$countPagi; $i++){
+                  echo'
+                        <li><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t=1">'.$i.'</a></li>';
+                }
+              }
+              else{
+                for($i=$sn; $i<$sn+$limit; $i++){
+                  echo'
+                        <li><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t=1">'.$i.'</a></li>';
+                }
+              }
+            }else{
+              for($i=1; $i<=$countPagi; $i++){
+                echo'
+                      <li><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t=1">'.$i.'</a></li>';
+              }
+            }
+            echo' </ul>';
 
             if($sn==1){
               if($sn == $total){
                 echo'
                   <div class="row">
                     <div class="col-md-10">
-                      <ul class="pagination pagination-sm">';
-                for($i=0; $i<$countPagi; $i++){
-                  echo'
-                        <li><a href="#">'.($i+1).'</a></li>';
-                }
-                      
-                echo' </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="finish_btn" name="finish_btn" value="FINALIZAR">
