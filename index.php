@@ -159,9 +159,12 @@
       <div class="col-md-3 box">
         <a href="#" data-toggle="modal" data-target="#VideoTutorial">Video Tutorial</a>
       </div>
+      <div class="col-md-3 box">
+        <a href="#" data-toggle="modal" data-target="#politicas">Avisos De Privacidad</a>
+      </div>
     </div>    
 
-    <!--Modal for teacher login-->
+    <!--Modal for video-->
 	  <div class="modal fade" id="VideoTutorial">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -187,6 +190,46 @@
               </div>
             </div>
           </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <!--Modal for privacy policies-->
+    <div class="modal fade" id="politicas">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">&times;
+              </span>
+              <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">
+              <span style="color:#879E0F;font-family:'typo'; font-size: 20px;">AVISO DE PRIVACIDAD</span>
+            </h4>
+          </div>
+          <div class="modal-body title1">
+            <div class="row">
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-12">
+                <form>
+                  <p style="text-align: justify;">Tus datos estan siendo protegidos por la Ley ARCO, si deseas conocer de manera más detallada esta información consulta los enlaces que a continuación se muestran:</p><br>
+                  <a href="documentos/AVISO DE PRIVACIDAD DE LA COMUNIDAD ESTUDIANTIL.pdf">* Aviso de Privacidad General</a><br>
+                  <a href="documentos/AVISO DE PRIVACIDAD.pdf">* Aviso de Privacidad de Alumnos Aspirantes a Alumnos, Exalumnos y Egresados</a><br><br>
+                  <div class="form-group" align="right">
+                    <button type="submit" class="btn btn-primary">ACEPTAR</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">CANCELAR</button>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-3">
+              </div>
+            </div>
+          </div>
+          <!--<div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>-->
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

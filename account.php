@@ -373,7 +373,21 @@ include_once 'dbConnection.php';
                 <div id="botonera">';  
 
             if($sn==1){
-              echo'
+              if($sn == $total){
+                echo'
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+                      <button type="submit" class="btn btn-primary" id="finish_btn" name="finish_btn" value="FINALIZAR">
+                        FINALIZAR
+                        <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                      </button>
+                    </div>
+                  </div>';
+              }
+              else{
+                echo'
                   <div class="row">
                     <div class="col-md-10">
                     </div>
@@ -384,6 +398,8 @@ include_once 'dbConnection.php';
                       </button>
                     </div>
                   </div>';
+              }
+              
             }
             elseif($sn>1 && $sn < $total){
               echo'

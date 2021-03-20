@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col-lg-6">
           <img src="../image/h1_tesi.png" style="height: 75px;">
-          <span class="logo">TestLine TESI</span>
+          <span class="logo">TestLine Adm.</span>
         </div>
         <div class="col-md-2 col-md-offset-4">
           <a href="#" class="pull-right btn sub1" data-toggle="modal" data-target="#login_teacher">
