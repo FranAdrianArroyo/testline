@@ -43,7 +43,7 @@
 include_once 'dbConnection.php';
 ?>
 
-<body>
+<body style="background-image: url(image/background.png);">
   <div class="header">
     <div class="row">
       <div class="col-lg-6">
@@ -222,7 +222,14 @@ include_once 'dbConnection.php';
 	                <tr style="color:red"><td>Respuestas Equivocadas&nbsp;<span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span></td><td>' . $w . '</td></tr>
 	                <tr style="color:#080C3E"><td>PUNTAJE OBTENIDO EN LA PRUEBA&nbsp;<span class="glyphicon glyphicon-star" aria-hidden="true"></span></td><td>' . $s . '</td></tr>';
             }
-            echo '</table></div>';
+            echo '</table>
+              <a href="account.php?q=1" class="pull-right btn sub1" style="margin:0px;background:#435e7c">
+                <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;
+                <span class="title1">
+                  <b>Regresar</b>
+                </span>
+              </a>
+            </div>';
           }
           ?>
           <!--result end-->
@@ -271,6 +278,11 @@ include_once 'dbConnection.php';
               $qns=$row['qns'];
               $qid=$row['qid'];
               $im=$row['image'];
+              $vi=$row['video'];
+              $extVi = explode(".", $vi);
+              $au=$row['audio'];
+              $extAu = explode(".", $au);
+              $do=$row['doc'];
               $qtopic=$row['topic'];
               $qsubtopic=$row['subtopic'];
               $qobjective=$row['objective'];
@@ -296,7 +308,28 @@ include_once 'dbConnection.php';
 
               if($im !== "no image"){
                 echo '<div>
-                        <img src="qimage/'.$im.'" style="max-width:50%;width:auto;height:auto;">
+                        <img src="http://localhost/testline-admin/qimage/'.$im.'" style="max-width:50%;width:auto;height:auto;">
+                      </div><br />';
+              }
+              if($vi !== "no video"){
+                echo '<div>
+                        <video style="max-width:50%;width:auto;height:auto;" controls>
+                          <source src="http://localhost/testline-admin/qvideo/'.$vi.'" type="video/'.$extVi[1].'" >
+                          Tu buscador no es compatible con el contenido Video
+                        </video>
+                      </div><br />';
+              }
+              if($au !== "no audio"){
+                echo '<div>
+                        <audio controls>
+                          <source src="http://localhost/testline-admin/qaudio/'.$au.'" type="audio/'.$extAu[1].'">
+                          Tu buscador no es compatible con el contenido Audio
+                        </audio>
+                      </div><br />';
+              }
+              if($do !== "no file"){
+                echo '<div>
+                        <embed src="http://localhost/testline-admin/qdoc/'.$do.'" type="application/pdf" width="100%" height="600px" />
                       </div><br />';
               }
             }
