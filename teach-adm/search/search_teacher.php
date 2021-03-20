@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnection.php';
+    include_once '../../dbConnection.php';
     $query = "SELECT * FROM teacher ORDER BY employnumber";
     $salida = "";
 
@@ -28,7 +28,7 @@
                     <td>".$row['name']."</td>
                     <td>".$row['employnumber']."</td>
                     <td>
-                      <a title='Delete User' href='update_admin.php?demploynumber=".$row['employnumber']."'>
+                      <a title='Delete User' href='update_career-chief.php?demploynumber=".$row['employnumber']."'>
                         <b>
                           <span class='glyphicon glyphicon-trash' aria-hidden='true'></span>
                         </b>

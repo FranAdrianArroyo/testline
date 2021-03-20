@@ -1,5 +1,5 @@
 <?php
-    include_once '../dbConnection.php';
+    include_once '../../dbConnection.php';
     $query = "SELECT * FROM user ORDER BY groupnum, last_name";
     $salida = "";
 

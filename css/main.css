@@ -177,27 +177,35 @@ hr {
 }
 
 .qPanel {
-    background-color: rgba(229, 243, 102, 0.76);
-    margin: 50px;
-    padding: 40px;
+    /*background-color: rgba(193, 226, 40, 0.76);*/
+    background-image: url("../image/fondo.jpeg");
+    margin: 60px;
+    padding: 60px;
+    border-style: double;
     font: 25px "Century Gothic", "Times Roman", sans-serif;
 }
 
 .qQtn {
-    background-color: rgb(109, 178, 243);
+    border: black 3px ridge;
+    background-color: rgb(255, 255, 255);
+    margin: 20px
     padding: 20px;
     font: 25px "Century Gothic", "Times Roman", sans-serif;
+    text-align: center;
 }
 
 .qInfo {
-    background-color: rgb(201, 109, 243);
+
+    border-style: dotted; border-color: green;
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     font: 15px "Century Gothic", "Times Roman", sans-serif;
     text-align: justify;
 }
 
 .qOpt {
-    background-color: rgb(28, 245, 144);
+    border-style: dashed; border-color: green;
+    background-color: rgb(255, 255, 255);
     padding: 5px;
     font: 15px "Century Gothic", "Times Roman", sans-serif;
 }

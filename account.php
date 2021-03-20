@@ -83,7 +83,7 @@ include_once 'dbConnection.php';
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="account.php?q=1">
-            <b>TESI en línea</b>
+            <b>TestLine TESI</b>
           </a>
         </div>
 
@@ -308,13 +308,13 @@ include_once 'dbConnection.php';
 
               if($im !== "no image"){
                 echo '<div>
-                        <img src="http://localhost/testline-admin/qimage/'.$im.'" style="max-width:50%;width:auto;height:auto;">
+                        <img src="teach-adm/qimage/'.$im.'" style="max-width:50%;width:auto;height:auto;">
                       </div><br />';
               }
               if($vi !== "no video"){
                 echo '<div>
                         <video style="max-width:50%;width:auto;height:auto;" controls>
-                          <source src="http://localhost/testline-admin/qvideo/'.$vi.'" type="video/'.$extVi[1].'" >
+                          <source src="teach-adm/qvideo/'.$vi.'" type="video/'.$extVi[1].'" >
                           Tu buscador no es compatible con el contenido Video
                         </video>
                       </div><br />';
@@ -322,14 +322,14 @@ include_once 'dbConnection.php';
               if($au !== "no audio"){
                 echo '<div>
                         <audio controls>
-                          <source src="http://localhost/testline-admin/qaudio/'.$au.'" type="audio/'.$extAu[1].'">
+                          <source src="teach-adm/qaudio/'.$au.'" type="audio/'.$extAu[1].'">
                           Tu buscador no es compatible con el contenido Audio
                         </audio>
                       </div><br />';
               }
               if($do !== "no file"){
                 echo '<div>
-                        <embed src="http://localhost/testline-admin/qdoc/'.$do.'" type="application/pdf" width="100%" height="600px" />
+                        <embed src="teach-adm/qdoc/'.$do.'" type="application/pdf" width="100%" height="600px" />
                       </div><br />';
               }
             }
@@ -438,7 +438,7 @@ include_once 'dbConnection.php';
                   <div class="table-responsive">  
                     <table class="table table-striped title1" >
                       <label style="color:#080C3E; font-size:31px;">RESULTADOS</label>
-                    <tr style="color:#879E0F; font-size:18px;">
+                      <tr style="color:#879E0F; font-size:18px;">
                         <td><b>S.N.</b></td>
                         <td><b>Título de la evaluación</b></td>
                         <td><b>Puntaje Máximo</b></td>
