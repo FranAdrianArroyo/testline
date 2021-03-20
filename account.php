@@ -228,7 +228,17 @@ include_once 'dbConnection.php';
                 <span class="title1">
                   <b>Regresar</b>
                 </span>
-              </a>
+              </a>&nbsp;
+
+              <b>
+                <a href="generate_pdf/generatestudent_pdf.php?eid='.$eid.'&scn='.$schoolnumber.'" target="_blank" class="pull-right btn sub1" style="margin:0px;background:#64D852;width:150px;">
+                  <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbsp;
+                  <span class="title1">
+                    <b>Evidencia</b>
+                  </span>
+                </a>
+              </b> 
+              
             </div>';
           }
           ?>
@@ -372,11 +382,21 @@ include_once 'dbConnection.php';
             <br />
                 <div id="botonera">';  
 
+            $qPagi = mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' " );
+            $countPagi = 50;
+
             if($sn==1){
               if($sn == $total){
                 echo'
                   <div class="row">
                     <div class="col-md-10">
+                      <ul class="pagination pagination-sm">';
+                for($i=0; $i<$countPagi; $i++){
+                  echo'
+                        <li><a href="#">'.($i+1).'</a></li>';
+                }
+                      
+                echo' </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="finish_btn" name="finish_btn" value="FINALIZAR">
@@ -390,6 +410,13 @@ include_once 'dbConnection.php';
                 echo'
                   <div class="row">
                     <div class="col-md-10">
+                    <ul class="pagination pagination-sm">
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">5</a></li>
+                    </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="question" name="question" value="SIGUIENTE">
@@ -409,6 +436,13 @@ include_once 'dbConnection.php';
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;
                         ANTERIOR
                       </button>
+                      <ul class="pagination pagination-sm">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                      </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="question" name="question" value="SIGUIENTE">
@@ -426,6 +460,13 @@ include_once 'dbConnection.php';
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;
                         ANTERIOR
                       </button>
+                      <ul class="pagination pagination-sm">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                      </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="finish_btn" name="finish_btn" value="FINALIZAR">
@@ -501,7 +542,15 @@ include_once 'dbConnection.php';
                                 <b>Ver resultados</b>
                               </span>
                             </a>
-                          </b>
+                          </b>&nbsp;
+                          <b>
+                            <a href="generate_pdf/generatestudent_pdf.php?eid='.$eid.'&scn='.$schoolnumber.'" target="_blank" class="pull-right btn sub1" style="margin:0px;background:#64D852;width:150px;">
+                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbsp;
+                              <span class="title1">
+                                <b>Evidencia</b>
+                              </span>
+                            </a>
+                          </b> 
                         </td>
                       </tr>';
               } else {
