@@ -47,7 +47,7 @@
                     <td>".$row['description']."</td>  
                     <td>
                       <b>
-                        <a href='dash.php?q=4&eid=".$row['eid']."' class='pull-right btn sub1' style='margin:0px;background:#48A8D1'>
+                        <a href='dash_career-chief.php?q=4&eid=".$row['eid']."' class='pull-right btn sub1' style='margin:0px;background:#48A8D1'>
                           <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>&nbsp;
                           <span class='title1'>
                             <b>VER RESULTADOS</b>

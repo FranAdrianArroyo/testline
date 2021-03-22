@@ -5,7 +5,7 @@
 
     if(isset($_POST['consulta'])){
       $q = $con->real_escape_string($_POST['consulta']);
-      $query = "SELECT * FROM career_chief WHERE name LIKE '%".$q."%' ORDER BY name";
+      $query = "SELECT * FROM career_chief WHERE name LIKE '%".$q."%' OR career LIKE '%".$q."%' ORDER BY name";
     }
     $resultado = $con->query($query);
     if($resultado->num_rows > 0){

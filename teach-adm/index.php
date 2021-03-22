@@ -176,7 +176,7 @@
               <div class="col-md-3">
               </div>
               <div class="col-md-6">
-                <form role="form" method="post" action="admin.php?q=index.php">
+                <form role="form" method="post" action="career-chief.php?q=index.php">
                   <div class="form-group">
                     <label>Ingrese su usuario: </label>
                     <input type="text" name="uname" maxlength="21"  placeholder="&#128231;   Ej. admin@admin.com" class="form-control"/> 
