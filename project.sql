@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-03-2021 a las 01:29:20
+-- Tiempo de generación: 22-03-2021 a las 18:49:43
 -- Versión del servidor: 5.7.26
 -- Versión de PHP: 7.3.5
 
@@ -25,29 +25,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `admin`
+-- Estructura de tabla para la tabla `admon`
 --
 
-DROP TABLE IF EXISTS `admin`;
-CREATE TABLE IF NOT EXISTS `admin` (
-  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(50) NOT NULL,
-  `password` varchar(500) NOT NULL,
-  PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `admon`;
+CREATE TABLE IF NOT EXISTS `admon` (
+  `user` text COLLATE utf8_spanish2_ci NOT NULL,
+  `password` text COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
--- Volcado de datos para la tabla `admin`
+-- Volcado de datos para la tabla `admon`
 --
 
-INSERT INTO `admin` (`admin_id`, `email`, `password`) VALUES
-(2, 'sistemas@tesi.com', 'sistemas'),
-(3, 'informatica@tesi.com', 'informatica'),
-(4, 'ambiental@tesi.com', 'ambiental'),
-(5, 'electronica@tesi.com', 'electronica'),
-(6, 'administracion@tesi.com', 'administracion'),
-(7, 'biomedica@tesi.com', 'biomedica'),
-(8, 'arquitectura@tesi.com', 'arquitectura');
+INSERT INTO `admon` (`user`, `password`) VALUES
+('administrador', 'admin12345abcd..');
 
 -- --------------------------------------------------------
 
@@ -66,9 +58,36 @@ CREATE TABLE IF NOT EXISTS `answer` (
 --
 
 INSERT INTO `answer` (`qid`, `ansid`) VALUES
-('60413ef4afc02', '60413ef4b9884'),
-('60413ef500d47', '60413ef5075c8'),
-('60413ef5214ac', '60413ef527cbe');
+('6055b5c29dcf3', '6055b5c2a9a64');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `career_chief`
+--
+
+DROP TABLE IF EXISTS `career_chief`;
+CREATE TABLE IF NOT EXISTS `career_chief` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(500) NOT NULL,
+  `name` text NOT NULL,
+  `career` text NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `career_chief`
+--
+
+INSERT INTO `career_chief` (`admin_id`, `email`, `password`, `name`, `career`) VALUES
+(2, 'sistemas@tesi.com', 'sistemas', 'Diana Casanova Lara', 'Ingeniería en Sistemas Computacionales'),
+(3, 'informatica@tesi.com', 'informatica', 'Carlos Alberto Tellez Morales', 'Ingeniería Informática'),
+(4, 'ambiental@tesi.com', 'ambiental', 'María Eva Castillo Rezendis', 'Ingeniería Ambiental'),
+(5, 'electronica@tesi.com', 'electronica', 'Christian Villareal', 'Ingeniería Electrónica'),
+(6, 'administracion@tesi.com', 'administracion', 'Raquel Guzmán Sánchez', 'Licenciatura en Administración'),
+(7, 'biomedica@tesi.com', 'biomedica', 'Adriana Berenice Martínez Bello', 'Ingeniería Biomédica'),
+(8, 'arquitectura@tesi.com', 'arquitectura', 'Edgar Humberto Castro López', 'Arquitectura');
 
 -- --------------------------------------------------------
 
@@ -106,12 +125,18 @@ CREATE TABLE IF NOT EXISTS `options` (
 --
 
 INSERT INTO `options` (`qid`, `qtype`, `option`, `optionid`) VALUES
-('60413ef4afc02', 'trfl', 'Verdadero', '60413ef4b9884'),
-('60413ef4afc02', 'trfl', 'Falso', '60413ef4b9887'),
-('60413ef500d47', 'trfl', 'Verda', '60413ef5075c4'),
-('60413ef500d47', 'trfl', 'Fals', '60413ef5075c8'),
-('60413ef5214ac', 'trfl', 'Verdadero', '60413ef527cbe'),
-('60413ef5214ac', 'trfl', 'Falso', '60413ef527cc1');
+('60555072d279a', 'trfl', 'Verdadero', '60555072d2fcb'),
+('60555072d279a', 'trfl', 'Falso', '60555072d2fcf'),
+('605550731c53e', 'trfl', 'Verdadero', '605550731d4dd'),
+('605550731c53e', 'trfl', 'Falso', '605550731d4e0'),
+('6055507335425', 'trfl', 'Verdadero', '6055507335870'),
+('6055507335425', 'trfl', 'Falso', '6055507335878'),
+('6055507352e05', 'trfl', 'Verdadero', '6055507353015'),
+('6055507352e05', 'trfl', 'Falso', '6055507353019'),
+('6055b5c29dcf3', 'closed', 'opcion a', '6055b5c2a9a50'),
+('6055b5c29dcf3', 'closed', 'opcion b', '6055b5c2a9a64'),
+('6055b5c29dcf3', 'closed', 'opcion c', '6055b5c2a9a6f'),
+('6055b5c29dcf3', 'closed', 'opcion d', '6055b5c2a9a76');
 
 -- --------------------------------------------------------
 
@@ -128,15 +153,9 @@ CREATE TABLE IF NOT EXISTS `qualification` (
   `right_ans` bigint(20) NOT NULL,
   `wrong_ans` bigint(20) NOT NULL,
   `porcent` float NOT NULL,
+  `status` text COLLATE utf8_spanish2_ci NOT NULL,
   `date` timestamp NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
-
---
--- Volcado de datos para la tabla `qualification`
---
-
-INSERT INTO `qualification` (`eid`, `schoolnumber`, `total_score`, `final_score`, `right_ans`, `wrong_ans`, `porcent`, `date`) VALUES
-('60413ea600e2a', '201635951', 10, 7, 2, 1, 70, '2021-03-12 03:54:55');
 
 -- --------------------------------------------------------
 
@@ -155,6 +174,9 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `competence` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `qns` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `image` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `video` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `audio` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
+  `doc` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `choice` int(10) NOT NULL,
   `sn` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -163,10 +185,8 @@ CREATE TABLE IF NOT EXISTS `questions` (
 -- Volcado de datos para la tabla `questions`
 --
 
-INSERT INTO `questions` (`eid`, `qid`, `qval`, `topic`, `subtopic`, `objective`, `competence`, `qns`, `image`, `choice`, `sn`) VALUES
-('60413ea600e2a', '60413ef4afc02', 5, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las auditorÃ­as informÃ¡ticas', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'pregunta 1', 'no image', 4, 1),
-('60413ea600e2a', '60413ef500d47', 3, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las auditorÃ­as informÃ¡ticas', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'pregunta 2', 'no image', 4, 2),
-('60413ea600e2a', '60413ef5214ac', 2, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las auditorÃ­as informÃ¡ticas', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'pregunta 3', 'no image', 4, 3);
+INSERT INTO `questions` (`eid`, `qid`, `qval`, `topic`, `subtopic`, `objective`, `competence`, `qns`, `image`, `video`, `audio`, `doc`, `choice`, `sn`) VALUES
+('6055b59f71986', '6055b5c29dcf3', 100, '1.Conceptos bÃ¡sicos', '1.1Historia', 'Conocer la historia de las redes', 'Capacidad de anÃ¡lisis y sÃ­ntesis', 'Pregunta 1', 'no image', 'no video', 'no audio', 'no file', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -178,6 +198,7 @@ DROP TABLE IF EXISTS `quiz`;
 CREATE TABLE IF NOT EXISTS `quiz` (
   `eid` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `employnumber` bigint(10) NOT NULL,
+  `career` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `subject` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `title` text CHARACTER SET utf8 COLLATE utf8_spanish2_ci NOT NULL,
   `groupnum` text NOT NULL,
@@ -193,8 +214,8 @@ CREATE TABLE IF NOT EXISTS `quiz` (
 -- Volcado de datos para la tabla `quiz`
 --
 
-INSERT INTO `quiz` (`eid`, `employnumber`, `subject`, `title`, `groupnum`, `total`, `time`, `description`, `date`, `start_date`, `final_date`) VALUES
-('60413ea600e2a', 4505, 'Seguridad informÃ¡tica', 'Prueba', '1951', 3, 5, 'aoekÃ±rjlqewrhewor', '2021-03-13 00:45:20', '2021-03-04 20:09:00', '2021-03-22 15:00:00');
+INSERT INTO `quiz` (`eid`, `employnumber`, `career`, `subject`, `title`, `groupnum`, `total`, `time`, `description`, `date`, `start_date`, `final_date`) VALUES
+('6055b59f71986', 4505, 'IngenierÃ­a en Sistemas Computacionales', 'Seguridad informatica', 'Prueba', '1951', 1, 8, 'prueba', '2021-03-20 08:43:11', '2021-03-20 08:42:00', '2021-03-23 08:42:00');
 
 -- --------------------------------------------------------
 
@@ -229,20 +250,16 @@ CREATE TABLE IF NOT EXISTS `results` (
   `qid` text COLLATE utf8_spanish2_ci NOT NULL,
   `ansid` text COLLATE utf8_spanish2_ci NOT NULL,
   `studentansid` text COLLATE utf8_spanish2_ci NOT NULL,
-  `option` varchar(500) COLLATE utf8_spanish2_ci NOT NULL
+  `option` varchar(500) COLLATE utf8_spanish2_ci NOT NULL,
+  `left_time` float NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `results`
 --
 
-INSERT INTO `results` (`schoolnumber`, `eid`, `qid`, `ansid`, `studentansid`, `option`) VALUES
-('201635951', '60413ea600e2a', '60413ef4afc02', '60413ef4b9884', '60413ef4b9884', 'opcion'),
-('201635951', '60413ea600e2a', '60413ef500d47', '60413ef5075c8', '60413ef5075c4', 'opcion'),
-('201635951', '60413ea600e2a', '60413ef5214ac', '60413ef527cbe', '60413ef527cbe', 'opcion'),
-('201635954', '60413ea600e2a', '60413ef4afc02', '60413ef4b9884', '', 'opcion'),
-('201635954', '60413ea600e2a', '60413ef500d47', '60413ef5075c8', '', 'opcion'),
-('201635954', '60413ea600e2a', '60413ef5214ac', '60413ef527cbe', '', 'opcion');
+INSERT INTO `results` (`schoolnumber`, `eid`, `qid`, `ansid`, `studentansid`, `option`, `left_time`) VALUES
+('201632958', '6055b59f71986', '6055b5c29dcf3', '6055b5c2a9a64', '6055b5c2a9a64', 'opcion', 7.84998);
 
 -- --------------------------------------------------------
 
@@ -288,8 +305,12 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`name`, `last_name`, `gender`, `career`, `schoolnumber`, `groupnum`, `email`, `password`) VALUES
-('Francisco Adrian', 'Arroyo Ponce', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201635951', '1951', '', 'd1134e43fa12e17c934dbb486ab6c6d2'),
-('Adrian', 'Perez', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201635954', '1951', 'megasadico@gmail.com', 'a3085373b79344412cc95dc836d1caf7');
+('Jose Andres', 'Samano Reyes', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201632957', '1951', 'josÃ©@gmail.com', '407d99d8276fced628f17ee7b47aae13'),
+('Joaquin ', 'Moreno Robles', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201632789', '1951', 'juan@gmail.com', '16f2beedbdcadadae64168b3904ef9fe'),
+('Berenice ', 'Santiago Martinez', 'F', 'IngenierÃ­a en Sistemas Computacionales', '201632958', '1951', 'bere_082598@outlook.com', 'f4e81fba7babf0836b8a448af1bb7fd4'),
+('Luis Fernando', 'Morales Sanchez', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201632891', '1951', 'feermorales@outlook.com', '69a7d40ac91ce56cc989cc0da75e4b52'),
+('Martin', 'Gomez Sanchez', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201632123', '1951', 'josÃ©@gmail.com', '48be94685ae284988a6fbf0bd780013f'),
+('Joaquin ', 'Sanchez Lopez', 'M', 'IngenierÃ­a en Sistemas Computacionales', '201632456', '1951', 'juan@gmail.com', '2e7fcfb2dde358fc510b1482cf262025');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

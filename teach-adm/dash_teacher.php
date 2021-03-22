@@ -56,14 +56,8 @@
       window.onload = function() {
         
         var divCl = document.getElementsByName("closed");
-        var divOp = document.getElementsByName("opened");
         var divTF = document.getElementsByName("truefalse"); 
         
-        
-        for(let rec = 0; rec < divOp.length; rec++){
-          var divsec = divOp[rec];
-          divsec.style.display="none";
-        }
         for(let rec = 0; rec < divTF.length; rec++){
           var divsec = divTF[rec];
           divsec.style.display="none";
@@ -71,21 +65,13 @@
       }      
 
       function hideDivs(cont){
-        var oQ = "opened"+cont;
         var cQ = "closed"+cont;
         var tfQ = "truefalse"+cont;
         if(document.getElementById('Pregunta cerrada'+cont).checked == true){
-          document.getElementById(oQ).style.display="none"; 
           document.getElementById(cQ).style.display="block";   
           document.getElementById(tfQ).style.display="none"; 
         }
-        else if(document.getElementById('Pregunta abierta'+cont).checked == true){
-          document.getElementById(oQ).style.display="block"; 
-          document.getElementById(cQ).style.display="none";   
-          document.getElementById(tfQ).style.display="none"; 
-        }
         else{
-          document.getElementById(oQ).style.display="none"; 
           document.getElementById(cQ).style.display="none";   
           document.getElementById(tfQ).style.display="block"; 
         }               
@@ -727,37 +713,37 @@
 
                         <div class="form-group row">
                           <div class="col-sm-9">
-                            <label style="font-style: italic;">Tema(s) de la pregunta: </label> <label style="color:red">*</label>
-                            <input type="text" class="form-control" id="topic'.$i.'" name="topic'.$i.'" placeholder="&#128211;   (Ej. 3.Reglas y Búsqueda)" style="background-color:#EEE; border:none;"required>
+                            <label style="font-style: italic;">Tema(s) de la pregunta: </label>
+                            <input type="text" class="form-control" id="topic'.$i.'" name="topic'.$i.'" placeholder="&#128211;   (Ej. 3.Reglas y Búsqueda)" style="background-color:#EEE; border:none;">
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <div class="col-sm-9">
-                            <label style="font-style: italic;">Subtema(s) de la pregunta: </label> <label style="color:red">*</label>
-                            <input type="text" class="form-control" id="subtopic'.$i.'" name="subtopic'.$i.'" placeholder="&#129534;   (Ej. 3.5 Semántica de las reglas de producción.)" style="background-color:#EEE; border:none;" required>
+                            <label style="font-style: italic;">Subtema(s) de la pregunta: </label>
+                            <input type="text" class="form-control" id="subtopic'.$i.'" name="subtopic'.$i.'" placeholder="&#129534;   (Ej. 3.5 Semántica de las reglas de producción.)" style="background-color:#EEE; border:none;">
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <div class="col-sm-9">
-                            <label style="font-style: italic;">Objetivo de la pregunta: </label> <label style="color:red">*</label>
-                            <input type="text" class="form-control" id="objective'.$i.'" name="objective'.$i.'" placeholder="&#127919;   (Ej. El alumno comprende el concepto de regla)" style="background-color:#EEE; border:none;" required>
+                            <label style="font-style: italic;">Objetivo de la pregunta: </label>
+                            <input type="text" class="form-control" id="objective'.$i.'" name="objective'.$i.'" placeholder="&#127919;   (Ej. El alumno comprende el concepto de regla)" style="background-color:#EEE; border:none;">
                           </div>
                         </div>
 
                         <div class="form-group row">
                           <div class="col-sm-9">
-                            <label style="font-style: italic;">Competencia: </label> <label style="color:red">*</label>
-                            <input type="text" class="form-control" id="competence'.$i.'" name="competence'.$i.'" placeholder="&#127942;   (Ej. Capacidad de análisis y síntesis)" style="background-color:#EEE; border:none;" required>
+                            <label style="font-style: italic;">Competencia: </label>
+                            <input type="text" class="form-control" id="competence'.$i.'" name="competence'.$i.'" placeholder="&#127942;   (Ej. Capacidad de análisis y síntesis)" style="background-color:#EEE; border:none;">
                           </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-12 control-label" for="qns'.$i.' "></label>
-                          <div class="col-md-12">
-                            <textarea rows="3" cols="5" name="qns'.$i.'" class="form-control" placeholder="&#9997;   Escriba la pregunta número '.$i.': " style="background-color:#EEE; border:none;"></textarea>  
+                          <div class="col-sm-9">
+                            <label style="font-style: italic;">Pregunta: </label><label style="color:red">*</label>
+                            <textarea rows="3" cols="5" name="qns'.$i.'" class="form-control" placeholder="&#9997;   Escriba la pregunta número '.$i.': " style="background-color:#EEE; border:none;"required></textarea>  
                           </div>
                         </div>
 
@@ -803,8 +789,6 @@
                             <br><label style="font-style: italic;">Selecciona el tipo de respuesta:</label> <label style="color:red;">*</label>
                             <br><input type="radio" id="Pregunta cerrada'.$i.'" name="radio1'.$i.'" value="on" checked onclick="hideDivs('.$i.')">
                             <label for="closed">Respuesta cerrada</label>
-                            <input type="radio" id="Pregunta abierta'.$i.'" name="radio1'.$i.'" value="on" onclick="hideDivs('.$i.')">
-                            <label for="opened">Respuesta abierta</label>
                             <input type="radio" id="Pregunta verfal'.$i.'" name="radio1'.$i.'" value="on" onclick="hideDivs('.$i.')">
                             <label for="opened">Verdadero-Falso</label>
                           </div>
@@ -857,16 +841,6 @@
                             <option value="c">Opción c</option>
                             <option value="d">Opción d</option> 
                           </select><br /><br />
-                        </div>
-
-                        <div class="col-md-12" id="opened'.$i.'" name="opened">
-                          <!-- Text input-->
-                          <div class="form-group">
-                            <label class="col-md-12 control-label" for="'.$i.'openans"></label>  
-                            <div class="col-md-12">
-                              <input id="'.$i.'openans" name="'.$i.'openans" placeholder="Escribe la respuesta correcta de la pregunta" class="form-control input-md" type="text">
-                            </div>
-                          </div>
                         </div>
 
                         <div class="col-md-12" id="truefalse'.$i.'" name="truefalse">

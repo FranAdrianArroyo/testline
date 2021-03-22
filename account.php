@@ -90,7 +90,7 @@ include_once 'dbConnection.php';
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li <?php if (@$_GET['q'] == 1) echo 'class="active"'; ?>><a href="account.php?q=1"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Evaluaciones<span class="sr-only">(current)</span></a></li>
+            <li <?php if (@$_GET['q'] == 1) echo 'class="active"'; ?>><a href="account.php?q=1"><span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>&nbsp;Exámenes<span class="sr-only">(current)</span></a></li>
             <li <?php if (@$_GET['q'] == 2 || @$_GET['q'] == 'quizresul') echo 'class="active"'; ?>><a href="account.php?q=2"><span class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Calificaciones</a></li>
             <li class="dropdown <?php if (@$_GET['q'] == 4 || @$_GET['q'] == 5 || @$_GET['q'] == 6) echo 'active"'; ?>">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span>&nbsp;Datos personales</a>
@@ -307,11 +307,29 @@ include_once 'dbConnection.php';
               <br />'; 
                     
               echo'
-              <div class="qInfo">
-                <b>Tema: </b> '.$qtopic.'
-                <br /><b>Subtema: </b> '.$qsubtopic.'
-                <br /><b>Objetivo: </b> '.$qobjective.'
-                <br /><b>Competencia: </b> '.$qcompetence.'<br />
+              <div class="qInfo">';
+
+              if($qtopic !== "vacio"){
+                echo'
+                <b>Tema: </b> '.$qtopic.'<br />';
+              }
+
+              if($qsubtopic !== "vacio"){
+                echo'
+                <b>Subtema: </b> '.$qsubtopic.'<br />';
+              }
+
+              if($qobjective !== "vacio"){
+                echo'
+                <b>Objetivo: </b> '.$qobjective.'<br />';
+              }
+
+              if($qobjective !== "vacio"){
+                echo'
+                <b>Competencia: </b> '.$qcompetence.'<br />';
+              }
+
+              echo'  
                 <b>Valor: '.$qval.' pts.</b><br />
               </div>
               <br />'; 
@@ -371,11 +389,6 @@ include_once 'dbConnection.php';
                   echo'<input type="radio" id="ans'.$sn.'" name="ans'.$sn.'" value="'.$optionid.'">'.$option.'<br />';           
                 }
               }
-              else{
-                $option=$row['option'];
-                $optionid=$row['optionid'];
-                echo'<input type="text" id="ansop'.$sn.'" name="ansop'.$sn.'" placeholder="Escribe tu respuesta aqui..." style="width: 500px;" ><br />';
-              }
             }
             echo'</div>';
             echo '
@@ -385,29 +398,6 @@ include_once 'dbConnection.php';
             $qPagi = mysqli_query($con,"SELECT * FROM questions WHERE eid='$eid' " );
             $countPagi = mysqli_num_rows($qPagi);
             $limit = 10;
-
-            echo' <ul class="pagination pagination-sm">'; 
-
-            if(($countPagi-$limit)>=1){
-              if(($sn+$limit)>$countPagi){
-                for($i=$sn; $i<=$countPagi; $i++){
-                  echo'
-                        <li><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t=1">'.$i.'</a></li>';
-                }
-              }
-              else{
-                for($i=$sn; $i<$sn+$limit; $i++){
-                  echo'
-                        <li><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t=1">'.$i.'</a></li>';
-                }
-              }
-            }else{
-              for($i=1; $i<=$countPagi; $i++){
-                echo'
-                      <li><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t=1">'.$i.'</a></li>';
-              }
-            }
-            echo' </ul>';
 
             if($sn==1){
               if($sn == $total){
@@ -427,13 +417,6 @@ include_once 'dbConnection.php';
                 echo'
                   <div class="row">
                     <div class="col-md-10">
-                    <ul class="pagination pagination-sm">
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                    </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="question" name="question" value="SIGUIENTE">
@@ -453,13 +436,6 @@ include_once 'dbConnection.php';
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;
                         ANTERIOR
                       </button>
-                      <ul class="pagination pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                      </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="question" name="question" value="SIGUIENTE">
@@ -477,13 +453,6 @@ include_once 'dbConnection.php';
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>&nbsp;
                         ANTERIOR
                       </button>
-                      <ul class="pagination pagination-sm">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                      </ul>
                     </div>
                     <div class="col-md-2">
                       <button type="submit" class="btn btn-primary" id="finish_btn" name="finish_btn" value="FINALIZAR">
@@ -497,6 +466,33 @@ include_once 'dbConnection.php';
             echo '
                 </div>
               </form>
+              <div class="row">   
+                <div class="col">         
+                  <ul class="pagination">'; 
+
+            if(($countPagi-$limit)>=1){
+              if(($sn+$limit)>$countPagi){
+                for($i=$sn; $i<=$countPagi; $i++){
+                  echo'
+                    <li id="primero"><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t='.$total.'">'.$i.'</a></li>';
+                }
+              }
+              else{
+                for($i=$sn; $i<$sn+$limit; $i++){
+                  echo'
+                    <li id="segundo"><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t='.$total.'">'.$i.'</a></li>';
+                }
+              }
+            }else{
+              for($i=1; $i<=$countPagi; $i++){
+                echo'
+                    <li id="tercero"><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t='.$total.'">'.$i.'</a></li>';
+              }
+            }
+            echo'       
+                  </ul>
+                </div>
+              </div>
             </div>';
           }
           ?>

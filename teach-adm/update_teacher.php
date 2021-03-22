@@ -122,10 +122,30 @@
         $qid=uniqid();
         $qns=$_POST['qns'.$i];
         $qval=$_POST['val'.$i];
-        $qtopic=$_POST['topic'.$i];
-        $qsubtopic=$_POST['subtopic'.$i];
-        $qobjective=$_POST['objective'.$i];
-        $qcompetence=$_POST['competence'.$i];
+
+        if(empty($_POST['topic'.$i])){
+          $qtopic = "vacio";
+        }else{
+          $qtopic=$_POST['topic'.$i];
+        }
+
+        if(empty($_POST['subtopic'.$i])){
+          $qsubtopic = "vacio";
+        }else{
+          $qsubtopic=$_POST['subtopic'.$i];
+        }
+
+        if(empty($_POST['objective'.$i])) {
+          $qobjective = "vacio";
+        }else{
+          $qobjective=$_POST['objective'.$i];
+        }
+
+        if(empty($_POST['competence'.$i])) {
+          $qcompetence = "vacio";
+        }else{
+          $qcompetence=$_POST['competence'.$i];
+        }            
         
         $qimage = $_FILES['im'.$i]['name'];
         $qvideo = $_FILES['vi'.$i]['name'];
@@ -254,28 +274,23 @@
         }
         else{
           $qdocnew = "no file";
-        }
-        echo $eid.", ".$qid.", ".$qval.", ".$qtopic.", ".$qsubtopic.", ".$qobjective.", ".$qcompetence.", ".$qns.", ".$qimgnew.", ".$qvidnew.", ".$qaunew.", ".$qdocnew.", ".$ch.", ".$i;
-        
+        }        
 
         $q3=mysqli_query($con,"INSERT INTO questions VALUES  ('$eid','$qid','$qval','$qtopic','$qsubtopic','$qobjective','$qcompetence','$qns','$qimgnew','$qvidnew','$qaunew','$qdocnew', '$ch' ,'$i')") or die("Error al subir la pregunta");
         $oaid=uniqid();
         $obid=uniqid();
         $ocid=uniqid();
         $odid=uniqid();
-        $openid=uniqid();
         $tid=uniqid();
         $fid=uniqid();
         $a=$_POST[$i.'1'];
         $b=$_POST[$i.'2'];
         $c=$_POST[$i.'3'];
         $d=$_POST[$i.'4'];
-        $op=$_POST[$i.'openans'];
         $tf=$_POST['tfans'.$i];
         $cl=$_POST['ans'.$i];
-        $op=strtolower($op);
 
-        if(empty($op) && empty($tf)){
+        if(empty($tf)){
           $qa=mysqli_query($con,"INSERT INTO options VALUES  ('$qid','closed','$a','$oaid')") or die('Error61');
           $qb=mysqli_query($con,"INSERT INTO options VALUES  ('$qid','closed','$b','$obid')") or die('Error62');
           $qc=mysqli_query($con,"INSERT INTO options VALUES  ('$qid','closed','$c','$ocid')") or die('Error63');
@@ -293,13 +308,8 @@
             default: $ansid=$oaid;
           }
           $qans=mysqli_query($con,"INSERT INTO answer VALUES  ('$qid','$ansid')");
-        }        
-        else if(empty($cl) && empty($tf)){
-          $qopen=mysqli_query($con,"INSERT INTO options VALUES  ('$qid','opened','$op','$openid')") or die('Error65');
-          $ansid=$openid;
-          $qans=mysqli_query($con,"INSERT INTO answer VALUES  ('$qid','$ansid')");
-        }        
-        else if(empty($op) && empty($cl)){
+        }             
+        else if(empty($cl)){
           $qt=mysqli_query($con,"INSERT INTO options VALUES  ('$qid','trfl','Verdadero','$tid')") or die('Error66');
           $qf=mysqli_query($con,"INSERT INTO options VALUES  ('$qid','trfl','Falso','$fid')") or die('Error67');
           switch($tf){
