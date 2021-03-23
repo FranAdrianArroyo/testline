@@ -24,7 +24,7 @@
         header("location:dash_admin.php?q=1&q7=Registro Exitoso!");
     }
     else{
-        header("location:dash_admin.php?q=1&q7=El usuario ya ha sido registrada!");   
+        header("location:dash_admin.php?q=1&q7=El usuario ya ha sido registrado!");   
     }
     ob_end_flush();
 ?>
