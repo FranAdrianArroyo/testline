@@ -139,6 +139,59 @@ include_once 'dbConnection.php';
                     </tr>';
             $c = 1;
 
+            $test_prueba = mysqli_query($con, "SELECT * FROM quiz WHERE eid = '6059402707eda'") or die('Error');
+            while ($row = mysqli_fetch_array($test_prueba)) {
+              $title = $row['title'];
+              $sub = $row['subject'];
+              $total = $row['total'];
+              $intro = $row['description'];
+              $time = $row['time'];
+              $eid = $row['eid'];
+              $sd = $row['start_date'];
+              $fd = $row['final_date'];
+              $q12 = mysqli_query($con, "SELECT total_score FROM qualification WHERE eid='$eid' AND schoolnumber='$schoolnumber'") or die('Error98');
+              $rowcount = mysqli_num_rows($q12);
+              if ($rowcount == 0) {
+                echo '
+                    <tr>
+                      <td>0000</td>
+                      <td>' . $title . '</td>
+                      <td>' . $sub . '</td>
+                      <td>' . $total . '</td>
+                      <td>' . $intro . '</td>
+                      <td>' . $time . '&nbsp;min</td>
+                      <td>' . $sd . '</td>
+                      <td>' . $fd . '</td>
+                      <td>
+                        <b>
+                          <a href="account.php?q=quiz2&eid=' . $eid . '&n=1&t='.$total.'" class="pull-right btn sub1" style="margin:0px;background:#99cc32">
+                            <span class="glyphicon glyphicon-new-window" aria-hidden="true"></span>&nbsp;
+                            <span class="title1">
+                              <b>Iniciar</b>
+                            </span>
+                          </a>
+                        </b>
+                      </td>
+                    </tr>';
+              } else {
+                echo '
+                    <tr>
+                      <td>0000</td>
+                      <td>' . $title . '&nbsp;
+                        <span title="This quiz is already solve by you" class="glyphicon glyphicon-ok" aria-hidden="true">
+                        </span>
+                      </td>
+                      <td>' . $sub . '</td>
+                      <td>' . $total . '</td>
+                      <td>' . $intro . '</td>
+                      <td>' . $time . '&nbsp;min</td>
+                      <td>' . $sd . '</td>
+                      <td>' . $fd . '</td>
+                      <td style="color:BLUE;">EVALUACIÓN RESUELTA. CONSULTA TUS CALIFICACIONES</td>
+                    </tr>';
+              }
+            }
+
             date_default_timezone_set('America/Mexico_City');
             $actual_date = date("Y-m-d H:i:s");
 
@@ -471,17 +524,17 @@ include_once 'dbConnection.php';
                   <ul class="pagination">'; 
 
             if(($countPagi-$limit)>=1){
-              if(($sn+$limit)>$countPagi){
-                for($i=$sn; $i<=$countPagi; $i++){
+              for($i = $sn-4; $i < $sn; $i++){
+                if($i > 0){
                   echo'
                     <li id="primero"><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t='.$total.'">'.$i.'</a></li>';
-                }
+                }                
               }
-              else{
-                for($i=$sn; $i<$sn+$limit; $i++){
+              for($i = $sn; $i <= $sn+5; $i++){
+                if($i <= $countPagi){
                   echo'
                     <li id="segundo"><a href="account.php?q=quiz2&eid='.$eid.'&n='.$i.'&t='.$total.'">'.$i.'</a></li>';
-                }
+                }                
               }
             }else{
               for($i=1; $i<=$countPagi; $i++){
