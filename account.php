@@ -126,7 +126,7 @@ include_once 'dbConnection.php';
               <div class="panel">
                 <div class="table-responsive">
                   <table class="table table-striped title1">
-                    <label style="color:#080C3E; font-size:31px;"> EVALUACIONES </label>
+                    <label style="color:#080C3E; font-size:31px;"> EXÁMENES </label>
                     <tr style="color:#879E0F; font-size:18px;">
                       <td><b>S.N.</b></td>
                       <td><b>Título de la evaluación</b></td>
@@ -139,7 +139,7 @@ include_once 'dbConnection.php';
                     </tr>';
             $c = 1;
 
-            $test_prueba = mysqli_query($con, "SELECT * FROM quiz WHERE eid = '6059402707eda'") or die('Error');
+            $test_prueba = mysqli_query($con, "SELECT * FROM quiz WHERE groupnum = '0000'") or die('Error');
             while ($row = mysqli_fetch_array($test_prueba)) {
               $title = $row['title'];
               $sub = $row['subject'];
@@ -572,25 +572,20 @@ include_once 'dbConnection.php';
                       </tr>';
             $c = 0;
 
-            while ($row = mysqli_fetch_array($q)) {
+            $test_prueba = mysqli_query($con, "SELECT * FROM qualification WHERE schoolnumber='$schoolnumber' ORDER BY date DESC ") or die('Error197');
+            while ($row = mysqli_fetch_array($test_prueba)) {
               $eid = $row['eid'];
               $ts = $row['total_score'];
               $w = $row['wrong_ans'];
               $r = $row['right_ans'];
               $fs = $row['final_score'];
               $pc = $row['porcent'];
-              $q23 = mysqli_query($con, "SELECT * FROM quiz WHERE  eid='$eid' ") or die('Error208');
-
+              $q23 = mysqli_query($con, "SELECT * FROM quiz WHERE eid='$eid' ") or die('Error208');
               while ($row = mysqli_fetch_array($q23)) {
                 $title = $row['title'];
-                $final_date = $row['final_date'];
+                $groupnum = $row['groupnum'];
               }
-
-              date_default_timezone_set('America/Mexico_City');
-              $actual_date = date("Y-m-d H:i:s");
-
-              $c++;
-              if ($actual_date > $final_date) {
+              if($groupnum=='0000'){
                 echo '
                       <tr>
                         <td>' . $c . '</td>
@@ -619,8 +614,63 @@ include_once 'dbConnection.php';
                           </b> 
                         </td>
                       </tr>';
+              }
+              
+            }
+
+            while ($row = mysqli_fetch_array($q)) {
+              $eid = $row['eid'];
+              $ts = $row['total_score'];
+              $w = $row['wrong_ans'];
+              $r = $row['right_ans'];
+              $fs = $row['final_score'];
+              $pc = $row['porcent'];
+              $q23 = mysqli_query($con, "SELECT * FROM quiz WHERE  eid='$eid' ") or die('Error208');
+
+              while ($row = mysqli_fetch_array($q23)) {
+                $title = $row['title'];
+                $final_date = $row['final_date'];
+                $groupnum = $row['groupnum'];
+              }
+
+              date_default_timezone_set('America/Mexico_City');
+              $actual_date = date("Y-m-d H:i:s");
+
+              $c++;
+              if ($actual_date > $final_date) {
+                if($groupnum!=='0000'){
+                  echo '
+                      <tr>
+                        <td>' . $c . '</td>
+                        <td>' . $title . '</td>
+                        <td>' . $ts . '</td>
+                        <td>' . $fs . '</td>
+                        <td>' . $r . '</td>
+                        <td>' . $w . '</td>
+                        <td>' . $pc . '%</td>
+                        <td>
+                          <b>
+                            <a href="account.php?q=quizresul&eid=' . $eid . '&schnum=' . $schoolnumber . '" class="pull-right btn sub1" style="margin:0px;background:#4482AB; width:155px;">
+                              <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>&nbsp;
+                              <span class="title1">
+                                <b>Ver resultados</b>
+                              </span>
+                            </a>
+                          </b>&nbsp;
+                          <b>
+                            <a href="generate_pdf/generatestudent_pdf.php?eid='.$eid.'&scn='.$schoolnumber.'" target="_blank" class="pull-right btn sub1" style="margin:0px;background:#64D852;width:150px;">
+                              <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbsp;
+                              <span class="title1">
+                                <b>Evidencia</b>
+                              </span>
+                            </a>
+                          </b> 
+                        </td>
+                      </tr>';
+                }                
               } else {
-                echo '
+                if($groupnum!=='0000'){
+                  echo '
                       <tr>
                         <td>' . $c . '</td>
                         <td>' . $title . '</td>
@@ -631,6 +681,7 @@ include_once 'dbConnection.php';
                         <td>' . $pc . '%</td>
                         <td>Respuestas disponibles despues de la fecha de termino.</td>
                       </tr>';
+                }                
               }
             }
             echo '
@@ -661,6 +712,11 @@ include_once 'dbConnection.php';
                 $qns = $row['qns'];
                 $qid = $row['qid'];
                 $im = $row['image'];
+                $vi=$row['video'];
+                $extVi = explode(".", $vi);
+                $au=$row['audio'];
+                $extAu = explode(".", $au);
+                $do=$row['doc'];
                 $qtopic = $row['topic'];
                 $qsubtopic = $row['subtopic'];
                 $qobjective = $row['objective'];
@@ -677,11 +733,31 @@ include_once 'dbConnection.php';
                           <b>Pregunta &nbsp;' . $i . ':</b> ' . $qns . '                        
                           <br />
                           <br />';
-
-                if ($im !== "no image") {
+                if($im !== "no image"){
                   echo '<div>
-                              <img src="qimage/' . $im . '" style="max-width:40%;width:auto;height:auto;">
-                            </div>';
+                          <img src="teach-adm/qimage/'.$im.'" style="max-width:50%;width:auto;height:auto;">
+                        </div><br />';
+                }
+                if($vi !== "no video"){
+                  echo '<div>
+                          <video style="max-width:50%;width:auto;height:auto;" controls>
+                            <source src="teach-adm/qvideo/'.$vi.'" type="video/'.$extVi[1].'" >
+                            Tu buscador no es compatible con el contenido Video
+                          </video>
+                        </div><br />';
+                }
+                if($au !== "no audio"){
+                  echo '<div>
+                          <audio controls>
+                            <source src="teach-adm/qaudio/'.$au.'" type="audio/'.$extAu[1].'">
+                            Tu buscador no es compatible con el contenido Audio
+                          </audio>
+                        </div><br />';
+                }
+                if($do !== "no file"){
+                  echo '<div>
+                          <embed src="teach-adm/qdoc/'.$do.'" type="application/pdf" width="100%" height="600px" />
+                        </div><br />';
                 }
               }
 
@@ -759,25 +835,6 @@ include_once 'dbConnection.php';
                             </div><br /><br />';
                       }
                     }
-                  }
-                } else {
-                  $option = $row['option'];
-                  $optionid = $row['optionid'];
-                  $q2 = mysqli_query($con, "SELECT * FROM results WHERE qid='$qid' AND schoolnumber='$schoolnumber'");
-                  while ($row = mysqli_fetch_array($q2)) {
-                    $roption = $row['option'];
-                  }
-                  echo '<br /><b>RESPUESTA CORRECTA: </b> ' . $option . ' ';
-                  if ($option == $roption) {
-                    echo '
-                        <div>
-                          <br /><b>Tu Respuesta: </b> <label style="background-color:#99F975"> ' . $roption . '</label>
-                        </div>';
-                  } else {
-                    echo '
-                        <div>
-                          <br /><b>Tu respuesta: </b><label style="background-color:#F49393"> ' . $roption . '</label>
-                        </div>';
                   }
                 }
               }

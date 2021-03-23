@@ -50,7 +50,7 @@
     </script>
   </head>
 
-  <body  style="background:#eee;">
+  <body style="background-image: url(../image/background.png); ">
     <div class="header">
       <div class="row">
         <div class="col-lg-6">

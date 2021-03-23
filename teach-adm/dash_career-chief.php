@@ -16,7 +16,7 @@
     <script src="../js/jquery.js" type="text/javascript"></script>
     <script src="../js/bootstrap.min.js"  type="text/javascript"></script>
     <script src="js/search_teacher.js" type="text/javascript"></script>
-    <script src="js/search_test.js" type="text/javascript"></script>
+    <script src="js/search_test_chief.js" type="text/javascript"></script>
     <script src="js/cargar.js"></script>
  	  <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
 
@@ -111,7 +111,6 @@
 
           <?php 
             if(@$_GET['q']==0) {
-              $result = mysqli_query($con,"SELECT * FROM quiz ORDER BY groupnum ") or die('Error');
               echo  '
               <div class="row">
                 <label style="color:#080C3E; font-size:32px;">CONSULTAR EVALUACIONES</label>

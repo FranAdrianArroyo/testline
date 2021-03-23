@@ -334,13 +334,13 @@
                     </a>
                   </b>&nbsp;
                   <b>
-                    <a href="generate_pdf/generatetea_pdf.php?eid='.$eid.'" target="_blank" class="pull-right btn sub1" style="margin:0px;background:#64D852;width:150px;">
+                    <a href="generate_pdf/generatetea_pdf.php?eid='.$eid.'" target="_blank" class="pull-right btn sub1" style="margin:0px;background:#64D852;width:190px;">
                       <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbsp;
                       <span class="title1">
-                        <b>DESCARGAR</b>
+                        <b>CALIFICACIONES</b>
                       </span>
                     </a>
-                  </b>  
+                  </b>
                   <b>
                     <a href="generate_pdf/generatecer_pdf.php?eid='.$eid.'" target="_blank" class="pull-left btn sub1" style="margin:0px;background:#90EE90;width:250px;">
                       <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>&nbsp;

@@ -55,7 +55,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title title1">
-                  <span style="color:#879E0F;font-family:'typo'; font-size: 30px;">INICIO DE SESIÓN ALUMNOS</span>
+                  <span style="color:#879E0F;font-family:'typo'; font-size: 30px;">INICIO DE SESIÓN ESTUDIANTES</span>
                 </h4>
               </div>
               <div class="modal-body">

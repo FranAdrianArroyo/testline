@@ -81,45 +81,86 @@ $pdf->Cell(60,10,utf8_decode('Estatus'),1,1,'C');
 
 $pdf->SetFont('Times','',12);
 
-$q3=mysqli_query($con,"SELECT * FROM user WHERE groupnum = '$group' AND schoolnumber = '$scn'ORDER BY last_name ASC") or die('Error');
+if($group!=='0000'){
+    $q3=mysqli_query($con,"SELECT * FROM user WHERE groupnum = '$group' AND schoolnumber = '$scn'ORDER BY last_name ASC") or die('Error');
     while($row = mysqli_fetch_array($q3)) {
     $nam=$row['name'];
     $scn=$row['schoolnumber'];
     $lname=$row['last_name'];
     $student=$lname." ".$nam;
 
-    $q4=mysqli_query($con,"SELECT * FROM qualification WHERE eid = '$eid' AND schoolnumber = $scn") or die('Error');
-    while($row = mysqli_fetch_array($q4)) {
-        $ts=$row['total_score'];
-        $fs=$row['final_score'];
-        $rans=$row['right_ans'];
-        $wans=$row['wrong_ans'];
-        $st=$row['status'];
-        $pc=$row['porcent'];
+        $q4=mysqli_query($con,"SELECT * FROM qualification WHERE eid = '$eid' AND schoolnumber = $scn") or die('Error');
+        while($row = mysqli_fetch_array($q4)) {
+            $ts=$row['total_score'];
+            $fs=$row['final_score'];
+            $rans=$row['right_ans'];
+            $wans=$row['wrong_ans'];
+            $st=$row['status'];
+            $pc=$row['porcent'];
 
 
-        if ($pc >= 70) {
-            $st = 'APROBADO';
-        }else{
-            $st = 'NO APROBADO';
+            if ($pc >= 70) {
+                $st = 'APROBADO';
+            }else{
+                $st = 'NO APROBADO';
+            }
+
+            $pdf->SetFont('Times','B',18);
+
+            $pdf->Cell(45,10,utf8_decode($scn),1,0,'C');
+            $pdf->Cell(100,10,utf8_decode($student),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($ts.'pts.'),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($fs.'pts.'),1,0,'C');
+            $pdf->Cell(20,10,utf8_decode($rans),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($wans),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($pc.'%'),1,0,'C');
+            $pdf->Cell(60,10,utf8_decode($st.''),1,1,'C');
+            $pdf->MultiCell(410, 145, utf8_decode("--------------------------------------------------------"),0,'C'); 
+            $pdf->MultiCell(410, -100, utf8_decode("Firma"),0,'C'); 
         }
-
-         $pdf->SetFont('Times','B',18);
-
-        $pdf->Cell(45,10,utf8_decode($scn),1,0,'C');
-        $pdf->Cell(100,10,utf8_decode($student),1,0,'C');
-        $pdf->Cell(35,10,utf8_decode($ts.'pts.'),1,0,'C');
-        $pdf->Cell(35,10,utf8_decode($fs.'pts.'),1,0,'C');
-        $pdf->Cell(20,10,utf8_decode($rans),1,0,'C');
-        $pdf->Cell(35,10,utf8_decode($wans),1,0,'C');
-        $pdf->Cell(35,10,utf8_decode($pc.'%'),1,0,'C');
-        $pdf->Cell(60,10,utf8_decode($st.''),1,1,'C');
-        $pdf->MultiCell(410, 145, utf8_decode("--------------------------------------------------------"),0,'C'); 
-        $pdf->MultiCell(410, -100, utf8_decode("Firma"),0,'C'); 
-
-       
     }
 }
+else{
+    $q3=mysqli_query($con,"SELECT * FROM user WHERE schoolnumber = '$scn'ORDER BY last_name ASC") or die('Error');
+    while($row = mysqli_fetch_array($q3)) {
+        $nam=$row['name'];
+        $scn=$row['schoolnumber'];
+        $lname=$row['last_name'];
+        $student=$lname." ".$nam;
+
+        $q4=mysqli_query($con,"SELECT * FROM qualification WHERE eid = '$eid' AND schoolnumber = $scn") or die('Error');
+        while($row = mysqli_fetch_array($q4)) {
+            $ts=$row['total_score'];
+            $fs=$row['final_score'];
+            $rans=$row['right_ans'];
+            $wans=$row['wrong_ans'];
+            $st=$row['status'];
+            $pc=$row['porcent'];
+
+
+            if ($pc >= 70) {
+                $st = 'APROBADO';
+            }else{
+                $st = 'NO APROBADO';
+            }
+
+            $pdf->SetFont('Times','B',18);
+
+            $pdf->Cell(45,10,utf8_decode($scn),1,0,'C');
+            $pdf->Cell(100,10,utf8_decode($student),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($ts.'pts.'),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($fs.'pts.'),1,0,'C');
+            $pdf->Cell(20,10,utf8_decode($rans),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($wans),1,0,'C');
+            $pdf->Cell(35,10,utf8_decode($pc.'%'),1,0,'C');
+            $pdf->Cell(60,10,utf8_decode($st.''),1,1,'C');
+            $pdf->MultiCell(410, 145, utf8_decode("--------------------------------------------------------"),0,'C'); 
+            $pdf->MultiCell(410, -100, utf8_decode("Firma"),0,'C'); 
+        }
+    }
+}
+
+
 
 
 $pdf->Output();
