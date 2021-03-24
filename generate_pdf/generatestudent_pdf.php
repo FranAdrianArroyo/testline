@@ -62,11 +62,20 @@ $pdf->Ln(10);
 
 $pdf->SetFont('Times','B',20);
 $pdf->SetLineWidth(0.5);
-$pdf->Cell(400,10,utf8_decode("Profesor aplicador:  $tea"),1,1,'L');
-$pdf->Cell(400,10,utf8_decode("Asignatura:  $sub"),1,1,'L');
-$pdf->Cell(400,10,utf8_decode("Examen aplicado:  $title"),1,1,'L');
-$pdf->Cell(400,10,utf8_decode("Grupo del alumno:  $group"),1,1,'L');
+
 $pdf->Ln(20);
+if($group=='0000'){
+    $pdf->Cell(400,10,utf8_decode("Profesor aplicador:  Profesor de prueba"),1,1,'L');
+    $pdf->Cell(400,10,utf8_decode("Asignatura:  $sub"),1,1,'L');
+    $pdf->Cell(400,10,utf8_decode("Examen aplicado:  $title"),1,1,'L');
+    $pdf->Cell(400,10,utf8_decode("Grupo del alumno: ----"),1,1,'L');
+}
+else{
+    $pdf->Cell(400,10,utf8_decode("Profesor aplicador:  $tea"),1,1,'L');
+    $pdf->Cell(400,10,utf8_decode("Asignatura:  $sub"),1,1,'L');
+    $pdf->Cell(400,10,utf8_decode("Examen aplicado:  $title"),1,1,'L');
+    $pdf->Cell(400,10,utf8_decode("Grupo del alumno:  $group"),1,1,'L');
+}
 
 $pdf->SetFont('Times','B',18);
 

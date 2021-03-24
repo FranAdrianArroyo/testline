@@ -149,7 +149,7 @@
         
         $qimage = $_FILES['im'.$i]['name'];
         $qvideo = $_FILES['vi'.$i]['name'];
-        $qaudio = $_FILES['au'.$i]['name'];
+        $qaudio = $_FILES['au'.$i]['name'];        
         $qdocument = $_FILES['do'.$i]['name'];
         //add images
         if (isset($qimage) && $qimage != "") {
@@ -277,6 +277,7 @@
         }        
 
         $q3=mysqli_query($con,"INSERT INTO questions VALUES  ('$eid','$qid','$qval','$qtopic','$qsubtopic','$qobjective','$qcompetence','$qns','$qimgnew','$qvidnew','$qaunew','$qdocnew', '$ch' ,'$i')") or die("Error al subir la pregunta");
+        echo $qaudio;
         $oaid=uniqid();
         $obid=uniqid();
         $ocid=uniqid();

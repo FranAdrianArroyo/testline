@@ -1,5 +1,5 @@
 <?php
-    include_once 'dbConnection.php';
+    include_once '../dbConnection.php';
     ob_start();
 
     $name = $_POST['name'];
@@ -29,7 +29,7 @@
     $email = addslashes($email);
     $email = ucwords(strtolower($email));
 
-    $q3=mysqli_query($con,"INSERT INTO user VALUES  ('$name' , '$last_name', '$gender' , '$career','$schoolnumber' ,'$groupnum', '$email', '$password')");
+    $q3=mysqli_query($con,"INSERT INTO user VALUES  ('$name', '$last_name', '$gender' , '$career', '$schoolnumber', '$groupnum', '$email', '$password')");
 
     if($q3){
         header("location:dash_teacher.php?q=1&q7=El usuario se ha registrado!");

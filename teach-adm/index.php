@@ -21,6 +21,19 @@
     <?php if(@$_GET['w'])
       {echo'<script>alert("'.@$_GET['w'].'");</script>';}
     ?>
+    <?php
+        include_once '../dbConnection.php';
+        session_start();
+        if ((isset($_SESSION['employnumber']))) {
+          header("location:dash_teacher.php?q=0");
+        }
+        if ((isset($_SESSION['user']))) {
+          header("location:dash_admin.php?q=1");
+        }
+        if ((isset($_SESSION['email']))) {
+          header("location:dash_career-chief.php?q=0");
+        }
+    ?>    
   </head>
 
   <body>
